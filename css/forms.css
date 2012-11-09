@@ -1,0 +1,59 @@
+﻿
+/**
+    General
+    */
+
+.error {
+    font-style: italic;
+    color: #f00;
+    font-size: 11px;
+}
+
+/**
+    Container
+    */
+
+section.formcont {
+    background-color: #FFF;
+    border: 1px solid #CCC;
+    padding: 30px;
+}
+
+.formcont h2 {
+    font-size: 26px;
+    font-family: "Calisto MT", "Bookman Old Style", Bookman, "Goudy Old Style", Garamond, "Hoefler Text", "Bitstream Charter", Georgia, serif;
+    margin-bottom: 50px;
+    margin-left: 70px;
+}
+
+.formcont article.form {
+    width: 500px;
+    margin: 0 auto;
+}
+
+.formcont .form.small {
+    width: 300px;
+}
+
+.form section.inputBlock  {
+    clear: both;
+    margin-bottom: 20px;
+}
+
+.form .inputBlock label {
+    float: left;
+    line-height: 26px;
+    font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
+}
+
+.form .inputBlock section.formInput {
+    margin-left: 150px;
+}
+
+.form .inputBlock.buttons {
+    padding-left: 150px;
+}
+
+.inputBlock.buttons p {
+    font-size: 11px;
+}

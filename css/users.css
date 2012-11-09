@@ -1,0 +1,109 @@
+﻿/**
+    
+    User Details
+
+    */
+
+    /**
+        Containers
+        */
+
+section#userCont {
+    padding-top: 50px;
+    padding-left: 50px;
+    float: left;
+}
+
+article#userCard {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    position: relative;
+    padding: 20px;
+    width: 500px;
+}
+
+    /**
+        Image
+        */
+
+figure#profPicCont {
+    float: left;
+    width: 200px;
+    position: absolute;
+    left: -50px;
+}
+
+#profPicCont img {
+    max-width: 198px;
+    max-height: 198px;
+    border: 1px solid #333;
+}
+
+    /**
+        Descrption
+        */
+
+p#fullName {
+    margin-left: 150px;
+    font-weight: bold;
+    font-size: 26px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+section#descriptionText {
+    margin-top: 35px;
+}
+
+section#contactInfo {
+    margin-top: 15px;
+}
+
+p.buttonCont {
+    float: left;
+    margin-right: 25px;
+    margin-top: 10px;
+}
+
+.buttonCont a {
+    display: block;
+    padding: 5px 10px;
+    background-color: #808080;
+    color: #111;
+}
+
+    .buttonCont a:hover {
+        background-color: #333;
+        text-decoration: none;
+        color: #ccc;
+    }
+
+    /**
+        Tags
+        */
+
+aside#userTags {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    margin-top: 50px;
+    float: right;
+    width: 240px;
+    padding: 20px 10px;
+}
+
+#userTags h3 {
+    font-size: 24px;
+    font-weight: bold;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+p.tag {
+    font-size: 11px;
+    font-family: Tahoma, Verdana, Segoe, sans-serif;
+    padding: 5px 10px;
+    background-color: #CBE7EF;
+    border-right: 1px solid #8eb6ba;
+    border-bottom: 1px solid #8eb6ba;
+    float: left;
+    margin-right: 15px;
+    margin-top: 10px;
+}
