@@ -15,22 +15,22 @@ public partial class user : System.Web.UI.Page {
 
         int id;
 
-        if (Request.QueryString["id"] == null || !int.TryParse(Request.QueryString["id"], out id) || !Logger.UserExists(id)) {
+        if (Request.QueryString["id"] == null || !int.TryParse(Request.QueryString["id"], out id) || !global::User.Exists(id)) {
 
             Response.Redirect("users.aspx");
 
         } else if (!IsPostBack) {
 
-            User usr = Logger.GetUser(id);
+            User usr = global::User.GetUser(id);
+
+            litTitle.Text = usr.Firstname + " " + usr.Lastname;
 
             profilePic.ImageUrl = "files/users/imgs/" + usr.ImageName;
             firstname.Text = usr.Firstname;
             lastname.Text = usr.Lastname;
 
             if (usr.Description != null) {
-                foreach (string line in usr.Description.Split('\n')) {
-                    descrTextPanel.Controls.Add(new LiteralControl("<p>" + line + "</p>\n"));
-                }
+                descrTextPanel.Text = "<p>" + string.Join("</p>\n<p>", usr.Description.Split('\n')) + "</p>\n";
             }
 
             if (Session["LoggerID"] != null) {

@@ -12,7 +12,7 @@
     <asp:ContentPlaceHolder ID="ExtraHead" runat="server"></asp:ContentPlaceHolder>
 </head>
 <body>
-    <form runat="server">
+    <form method="post" enctype="multipart/form-data" runat="server">
         <section id="HeaderCont">
             <header class="clearfix">
                 <section id="accountLinksCont">
@@ -20,6 +20,7 @@
                         <asp:MultiView ID="accountViews" ActiveViewIndex="0" runat="server">
                             <asp:View runat="server">
                                 <li id="loginLink"><a href="login.aspx">Log In</a></li>
+                                <li id="registerLink"><a href="register.aspx">Register</a></li>
                             </asp:View>
                             <asp:View runat="server">
                                 <li id="inboxLink"><a href="inbox.aspx">Inbox<asp:Label ID="MessagesLabel" runat="server" /></a></li>
@@ -29,8 +30,8 @@
                                         <p><a><asp:Label ID="userLinkName" CssClass="loggerName" runat="server" /></a></p>
                                     </section>
                                     <ul id="userDropDown" class="dropdown">
-                                        <li><asp:LinkButton ID="profileLink" Text="My Profile" runat="server" /></li>
-                                        <li><asp:LinkButton ID="logoutLink" Text="Log Out" OnClick="logoutLink_Click" runat="server" /></li>
+                                        <li><asp:LinkButton ID="profileLink" CausesValidation="false" Text="My Profile" runat="server" /></li>
+                                        <li><asp:LinkButton ID="logoutLink" CausesValidation="false" Text="Log Out" OnClick="logoutLink_Click" runat="server" /></li>
                                     </ul>
                                 </li>
                             </asp:View>
@@ -41,8 +42,8 @@
                                         <p><a><asp:Label ID="companyLinkLabel" CssClass="loggerName" runat="server" /></a></p>
                                     </section>
                                     <ul id="companyDropDown" class="dropdown">
-                                        <li><asp:LinkButton ID="companyProfileLink" Text="My Profile" runat="server" /></li>
-                                        <li><asp:LinkButton ID="companyLogOutLink" Text="Log Out" OnClick="logoutLink_Click" runat="server" /></li>
+                                        <li><asp:LinkButton ID="companyProfileLink" CausesValidation="false" Text="My Profile" runat="server" /></li>
+                                        <li><asp:LinkButton ID="companyLogOutLink" CausesValidation="false" Text="Log Out" OnClick="logoutLink_Click" runat="server" /></li>
                                     </ul>
                                 </li>
                             </asp:View>
@@ -52,9 +53,9 @@
                 <h1><a href="default.aspx">JobFinder</a></h1>
                 <nav>
                     <ul id="navList">
-                        <li><asp:LinkButton ID="offersLink" Text="Job Offers" PostBackUrl="offers.aspx" runat="server" /></li>
-                        <li><asp:LinkButton ID="companiesLink" Text="Companies" PostBackUrl="companies.aspx" runat="server" /></li>
-                        <li><asp:LinkButton ID="usersLink" Text="Users" PostBackUrl="users.aspx" runat="server" /></li>
+                        <li><asp:LinkButton ID="offersLink" Text="Job Offers" CausesValidation="false" CommandArgument="joboffers.aspx" OnCommand="redir" runat="server" /></li>
+                        <li><asp:LinkButton ID="companiesLink" Text="Companies" CausesValidation="false" CommandArgument="companies.aspx" OnCommand="redir" runat="server" /></li>
+                        <li><asp:LinkButton ID="usersLink" Text="Users" CausesValidation="false" CommandArgument="users.aspx" OnCommand="redir" runat="server" /></li>
                     </ul>
                 </nav>
             </header>

@@ -38,25 +38,10 @@
       <Column Name="AlternateRegionId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="JobOffer_Application" Member="Applications" ThisKey="ID" OtherKey="OfferId" Type="Application" />
       <Association Name="JobOffer_OfferHasTag" Member="OfferHasTags" ThisKey="ID" OtherKey="OfferId" Type="OfferHasTag" />
-      <Association Name="JobOffer_User_Saves_Offer" Member="User_Saves_Offers" ThisKey="ID" OtherKey="OfferId" Type="User_Saves_Offer" />
+      <Association Name="JobOffer_UserSavesOffer" Member="UserSavesOffers" ThisKey="ID" OtherKey="OfferId" Type="UserSavesOffer" />
       <Association Name="Company_JobOffer" Member="Company" ThisKey="CompanyId" OtherKey="ID" Type="Company" IsForeignKey="true" />
       <Association Name="Region_JobOffer" Member="Region" ThisKey="AlternateRegionId" OtherKey="ID" Type="Region" IsForeignKey="true" />
       <Association Name="User_JobOffer" Member="User" ThisKey="ContactId" OtherKey="ID" Type="User" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Messages" Member="Messages">
-    <Type Name="Message">
-      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="FromId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="ToId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Subject" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="Message" Member="Message1" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
-      <Column Name="FromVisible" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="ToVisible" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="[Read]" Member="Read" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="Sent" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Association Name="User_Message" Member="User" ThisKey="FromId" OtherKey="ID" Type="User" IsForeignKey="true" />
-      <Association Name="User_Message1" Member="User1" ThisKey="ToId" OtherKey="ID" Type="User" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.OfferHasTag" Member="OfferHasTags">
@@ -90,13 +75,6 @@
       <Association Name="Tag_UserInterestedIn" Member="UserInterestedIns" ThisKey="ID" OtherKey="TagId" Type="UserInterestedIn" />
     </Type>
   </Table>
-  <Table Name="dbo.User_Saves_Offer" Member="User_Saves_Offers">
-    <Type Name="User_Saves_Offer">
-      <Column Name="UserId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="OfferId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Association Name="JobOffer_User_Saves_Offer" Member="JobOffer" ThisKey="OfferId" OtherKey="ID" Type="JobOffer" IsForeignKey="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.UserInterestedIn" Member="UserInterestedIns">
     <Type Name="UserInterestedIn">
       <Column Name="UserId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -118,10 +96,11 @@
       <Column Name="ShowMail" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Association Name="User_Application" Member="Applications" ThisKey="ID" OtherKey="UserId" Type="Application" />
       <Association Name="User_JobOffer" Member="JobOffers" ThisKey="ID" OtherKey="ContactId" Type="JobOffer" />
-      <Association Name="User_Message" Member="Messages" ThisKey="ID" OtherKey="FromId" Type="Message" />
-      <Association Name="User_Message1" Member="Messages1" ThisKey="ID" OtherKey="ToId" Type="Message" />
       <Association Name="User_UserInterestedIn" Member="UserInterestedIns" ThisKey="ID" OtherKey="UserId" Type="UserInterestedIn" />
       <Association Name="User_Logger" Member="Loggers" ThisKey="ID" OtherKey="UserId" Type="Logger" />
+      <Association Name="User_UserSavesOffer" Member="UserSavesOffers" ThisKey="ID" OtherKey="UserId" Type="UserSavesOffer" />
+      <Association Name="User_Message" Member="Messages" ThisKey="ID" OtherKey="FromId" Type="Message" />
+      <Association Name="User_Message1" Member="Messages1" ThisKey="ID" OtherKey="ToId" Type="Message" />
     </Type>
   </Table>
   <Table Name="dbo.Loggers" Member="Loggers">
@@ -136,6 +115,30 @@
       <Column Name="Salt" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
       <Association Name="Company_Logger" Member="Company" ThisKey="CompanyId" OtherKey="ID" Type="Company" IsForeignKey="true" />
       <Association Name="User_Logger" Member="User" ThisKey="UserId" OtherKey="ID" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.UserSavesOffer" Member="UserSavesOffers">
+    <Type Name="UserSavesOffer">
+      <Column Name="UserId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="OfferId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="JobOffer_UserSavesOffer" Member="JobOffer" ThisKey="OfferId" OtherKey="ID" Type="JobOffer" IsForeignKey="true" />
+      <Association Name="User_UserSavesOffer" Member="User" ThisKey="UserId" OtherKey="ID" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Messages" Member="Messages">
+    <Type Name="Message">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FromId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ToId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Subject" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Message" Member="Message1" Type="System.String" DbType="Text NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="FromVisible" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="ToVisible" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="[Read]" Member="Read" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Sent" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="User_Message" Member="User" ThisKey="FromId" OtherKey="ID" Type="User" IsForeignKey="true" />
+      <Association Name="User_Message1" Member="User1" ThisKey="ToId" OtherKey="ID" Type="User" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

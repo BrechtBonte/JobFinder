@@ -48,21 +48,7 @@ public partial class General : System.Web.UI.MasterPage {
         Response.Redirect("~/default.aspx");
     }
 
-    public void SetActive(MainNavItems item) {
-        offersLink.CssClass = "";
-        companiesLink.CssClass = "";
-        usersLink.CssClass = "";
-
-        switch (item) {
-            case MainNavItems.JobOffers :
-                offersLink.CssClass = "active";
-                break;
-            case MainNavItems.Companies :
-                companiesLink.CssClass = "active";
-                break;
-            case MainNavItems.Users :
-                usersLink.CssClass = "active";
-                break;
-        }
+    protected void redir(object sender, CommandEventArgs e) {
+        Response.Redirect(e.CommandArgument.ToString());
     }
 }

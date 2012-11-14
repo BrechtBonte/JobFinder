@@ -1,0 +1,180 @@
+﻿/**
+    
+    Company Details
+
+    */
+
+article#companyCont {
+    background-color: #fff;
+    border: 1px solid #ccc;
+}
+
+
+
+
+/**
+    Header
+    */
+
+section#companyHead {
+    padding: 15px;
+}
+
+#companyHead h2 {
+    margin-left: 230px;
+    font-weight: bold;
+    font-size: 32px;
+    font-family: Geneva, Tahoma, Verdana, sans-serif;
+    height: 100px;
+    line-height: 100px;
+}
+
+
+    /**
+        Logo
+        */
+
+    figure#logoCont {
+        width: 180px;
+        height: 100px;
+        float: left;
+    }
+
+    #logoCont img {
+        max-width: 180px;
+        max-height: 100px;
+    }
+
+
+
+/**
+    Tabs
+    */
+
+div#lineDivPre {
+    border-bottom: 1px solid #ccc;
+    width: 15px;
+    height: 23px;
+    float: left;
+}
+
+div#lineDiv {
+    border-bottom: 1px solid #ccc;
+    height: 23px;
+    width: 730px;
+    float: right;
+}
+
+a.tab {
+    border: 1px solid #ccc;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    font-size: 14px;
+    display: block;
+    height: 22px;
+    width: 75px;
+    line-height: 22px;
+    text-align: center;
+    color: #000;
+    float: left;
+}
+
+a.tab:hover {
+    text-decoration: none;
+}
+
+a.tab.open {
+    border-bottom: 1px solid transparent;
+}
+
+a#BodyHolder_aboutTab.open {
+    border-right: none;
+}
+
+a#BodyHolder_offerTab.open {
+    border-left: none;
+}
+
+
+/**
+    
+    Description
+
+    */
+
+section#aboutCont {
+    padding: 25px;
+}
+
+#aboutCont section#companyDescriptionCont {
+    width: 520px;
+    float: left;
+}
+
+#aboutCont aside#contactInfo {
+    float: right;
+    width: 300px;
+    padding-left: 10px;
+    border-left: 1px dashed #808080;
+}
+
+#contactInfo p#contactRegion {
+    margin-bottom: 10px;
+}
+
+
+/**
+    
+    Job Offers
+
+    */
+
+section#jobOffers {
+    padding: 25px;
+    padding-bottom: 5px;
+}
+
+#jobOffers article.joboffer {
+    border: 1px solid #808080;
+    margin-bottom: 20px;
+    padding: 10px;
+}
+
+
+/**
+    Title
+    */
+
+.joboffer h3 {
+    font-size: 18px;
+    font-family: Optima, Segoe, "Segoe UI", Candara, Calibri, Arial, sans-serif;
+    margin-bottom: 15px;
+}
+
+/**
+    Read More
+    */
+
+.joboffer section.offerTags {
+    width: 600px;
+    float: left;
+}
+
+.joboffer a.ReadMoreBtn {
+    display: block;
+    width: 98px;
+    height: 23px;
+    line-height: 23px;
+    border: 1px solid #333;
+    float: right;
+    text-align: center;
+    margin-top: 5px;
+    margin-right: 5px;
+    background-color: #42889B;
+    color: #eee;
+}
+
+.joboffer .ReadMoreBtn:hover {
+    background-color: #9FAFB3;
+    color: #fff;
+    text-decoration: none;
+}

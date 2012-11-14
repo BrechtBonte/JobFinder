@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/General.master" AutoEventWireup="true" CodeFile="user.aspx.cs" Inherits="user" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="title" Runat="Server"></asp:Content>
+<asp:Content ID="Content1" ContentPlaceHolderID="title" Runat="Server"><asp:Literal ID="litTitle" runat="server" /> JobFinder</asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ExtraHead" Runat="Server">
     <link rel="stylesheet" href="css/users.css" />
@@ -26,7 +26,7 @@
             </figure>
             <p id="fullName"><asp:Label ID="firstname" runat="server" /> <asp:Label ID="lastname" runat="server" /></p>
             <section id="descriptionText">
-                <asp:Panel ID="descrTextPanel" runat="server" />
+                <asp:Literal ID="descrTextPanel" runat="server" />
             </section>
             <section id="contactInfo">
                 <asp:MultiView ID="contactViews" ActiveViewIndex="0" runat="server">

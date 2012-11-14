@@ -1,0 +1,232 @@
+﻿/**
+
+    General
+
+    */
+
+
+/**
+    Tabs
+    */
+
+div#lineDiv {
+    height: 24px;
+    border-bottom: 1px solid #808080;
+    width: 595px;
+    float: left;
+}
+
+p.tab {
+    float: left;
+}
+
+p.tab a {
+    display: block;
+    height: 23px;
+    line-height: 23px;
+    width: 100px;
+    border: 1px solid #808080;
+    text-align: center;
+    background: #fff;
+}
+
+p.tab a:hover {
+    text-decoration: none;
+}
+
+p#sentTab a {
+    border-left: none;
+}
+
+p#rightTab {
+    float: right;
+}
+
+p.tab a.opened {
+    border-bottom: 1px solid transparent;
+}
+
+
+
+/**
+
+    Inbox
+
+    */
+
+.inbox #inboxMessageCont .to {
+    display: none;
+}
+
+.sent #inboxMessageCont .from {
+    display: none;
+}
+
+section#inboxMessageCont {
+    border: 1px solid #808080;
+    border-top: none;
+    background-color: #fff;
+    padding: 25px;
+}
+
+#inboxMessageCont table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#inboxMessageCont tr {
+    border: 1px solid #ccc;
+}
+
+#inboxMessageCont th {
+    text-align: left;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    padding: 5px;
+    padding-left: 0;
+}
+
+#inboxMessageCont td.from a, #inboxMessageCont td.to a {
+    padding-left: 5px;
+}
+
+#inboxMessageCont td a {
+    display: block;
+    padding: 3px 0;
+    width: 100%;
+}
+
+.inbox #inboxMessageCont td a.False {
+    background-color: #CBE7EF;
+}
+
+#inboxMessageCont td a:hover {
+    text-decoration: none;
+}
+
+#inboxMessageCont th#fromH {
+    padding-left: 5px;
+    width: 130px;
+}
+
+#inboxMessageCont th#toH {
+    padding-left: 5px;
+    width: 130px;
+}
+
+#inboxMessageCont th#subjH {
+    width: 150px;
+}
+
+
+
+
+
+/**
+
+    Detail
+
+    */
+
+article#pmCont {
+    border: 1px solid #808080;
+    border-top: 0;
+    background-color: #fff;
+    padding: 25px;
+}
+
+#pmCont h3 {
+    font-size: 21px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+
+
+/**
+    Heading
+    */
+
+section#HeadInfo {
+    margin-left: 25px;
+    margin-top: 15px;
+}
+
+p#FromUser a {
+    margin-left: 10px;
+}
+
+p#ToUser {
+    margin-top: 3px;
+}
+
+#ToUser a {
+    margin-left: 26px;
+}
+
+p#ReplyCont {
+    float: right;
+}
+
+#ReplyCont a {
+    display: block;
+    height: 25px;
+    line-height: 25px;
+    text-align: center;
+    width: 75px;
+    border: 1px solid #808080;
+    background-color: #42889B;
+    color: #eee;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+#ReplyCont a:hover {
+    background-color: #9FAFB3;
+    color: #fff;
+    text-decoration: none;
+}
+
+
+
+
+/**
+    Message
+    */
+
+section#messageCont {
+    margin-left: 25px;
+    margin-top: 20px;
+    border: 1px solid #808080;
+    padding: 10px;
+    width: 500px;
+    margin-bottom: 50px;
+}
+
+
+
+
+/**
+
+    New Message
+
+    */
+
+article#newMessage {
+    border: 1px solid #808080;
+    border-top: 0;
+    background-color: #fff;
+    padding: 25px;
+}
+
+#newMessage textarea {
+    width: 300px;
+    height: 150px;
+}
+
+p.tab a.SendBtn {
+    background-color: #439F5F;
+    color: #eee;
+}
+
+p.tab .SendBtn:hover {
+    color: #fff;
+    background-color: #A2B7A8;
+}

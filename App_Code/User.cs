@@ -2,19 +2,69 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Data.Linq.SqlClient;
 
 /// <summary>
 /// Summary description for User
 /// </summary>
 public partial class User {
 
-    #region - Instance -
+    private const int TAGS = 4;
 
-    public int CountNewMessages() {
+
+    #region - General -
+
+    public static User GetUser(string str) {
 
         DataClassesDataContext dbo = new DataClassesDataContext();
 
-        return dbo.Messages.Where(m => m.ToId == this.ID && m.Read == false).Count();
+        Logger temp = dbo.Loggers.SingleOrDefault(l => l.Email == str);
+
+        return temp != null ? temp.User : dbo.Users.SingleOrDefault(u => str.Equals(u.Firstname + " " + u.Lastname));
+    }
+
+    public static User GetUser(int id) {
+
+        DataClassesDataContext dbo = new DataClassesDataContext();
+
+        return dbo.Users.SingleOrDefault(u => u.ID == id);
+    }
+
+    public static bool Exists(string str) {
+
+        return GetUser(str) != null;
+    }
+
+    public static bool Exists(int id) {
+
+        return GetUser(id) != null;
+    }
+
+
+    public static List<User> FindUsers(string name, int start, int amount) {
+
+        DataClassesDataContext dbo = new DataClassesDataContext();
+        
+        return dbo.Users.Where(u => SqlMethods.Like(u.Firstname + " " + u.Lastname, "%" + name + "%")).Skip(start).Take(amount).ToList();
+    }
+
+
+    public static List<User> FindUsers(string name) {
+
+        DataClassesDataContext dbo = new DataClassesDataContext();
+
+        return dbo.Users.Where(u => string.Compare(u.Firstname + " " + u.Lastname, name, true) == 0).ToList();
+    }
+
+    #endregion
+
+
+    #region - Tags -
+
+    public string TagPs {
+        get {
+            return "<p class=\"tag\">" + string.Join("</p>\n<p class=\"tag\">", this.GetTags().Take(TAGS)) + "</p>";
+        }
     }
 
     public List<Tag> GetTags() {
@@ -24,6 +74,18 @@ public partial class User {
         return dbo.UserInterestedIns.Where(i => i.UserId == this.ID).Select(i => i.Tag).ToList();
     }
 
+    #endregion
+
+
+    #region - Inbox -
+
+    public int CountNewMessages() {
+
+        DataClassesDataContext dbo = new DataClassesDataContext();
+
+        return dbo.Messages.Where(m => m.ToId == this.ID && m.Read == false).Count();
+    }
+
     public string GetEmail() {
 
         if (this.Email != null || this.Email == "") return this.Email;
@@ -31,6 +93,82 @@ public partial class User {
         DataClassesDataContext dbo = new DataClassesDataContext();
 
         return dbo.Loggers.Single(l => l.UserId == this.ID).Email;
+    }
+
+    public List<Message> GetInbox() {
+
+        DataClassesDataContext dbo = new DataClassesDataContext();
+
+        return dbo.Messages.Where(m => m.ToId == this.ID && m.ToVisible).OrderByDescending(m => m.Sent).ToList();
+    }
+
+    public List<Message> GetSent() {
+
+        DataClassesDataContext dbo = new DataClassesDataContext();
+
+        return dbo.Messages.Where(m => m.FromId == this.ID && m.FromVisible).OrderByDescending(m => m.Sent).ToList();
+    }
+
+
+    public Message SendMessage(User to, string subject, string message) {
+
+        DataClassesDataContext dbo = new DataClassesDataContext();
+
+        Message mss = new Message();
+        mss.FromId = this.ID;
+        mss.ToId = to.ID;
+        mss.Subject = subject;
+        mss.Message1 = message;
+        mss.FromVisible = true;
+        mss.ToVisible = true;
+        mss.Read = false;
+
+        dbo.Messages.InsertOnSubmit(mss);
+        dbo.SubmitChanges();
+
+        return mss;
+    }
+
+    #endregion
+
+
+    #region - Saves -
+
+    public void SaveJobOffer(JobOffer offer) {
+
+        DataClassesDataContext dbo = new DataClassesDataContext();
+
+        UserSavesOffer save = new UserSavesOffer();
+
+        save.UserId = this.ID;
+        save.OfferId = offer.ID;
+
+        dbo.UserSavesOffers.InsertOnSubmit(save);
+        dbo.SubmitChanges();
+    }
+
+    public void Unsave(JobOffer offer) {
+
+        DataClassesDataContext dbo = new DataClassesDataContext();
+
+        UserSavesOffer save = dbo.UserSavesOffers.Single(s => s.UserId == this.ID && s.OfferId == offer.ID);
+
+        dbo.UserSavesOffers.DeleteOnSubmit(save);
+        dbo.SubmitChanges();
+    }
+
+    public List<JobOffer> GetSavedJobs() {
+
+        DataClassesDataContext dbo = new DataClassesDataContext();
+
+        return dbo.UserSavesOffers.Where(s => s.UserId == this.ID).Select(s => s.JobOffer).ToList();
+    }
+
+    public bool HasSaved(JobOffer offer) {
+
+        DataClassesDataContext dbo = new DataClassesDataContext();
+
+        return dbo.UserSavesOffers.SingleOrDefault(s => s.OfferId == offer.ID && s.UserId == this.ID) != null;
     }
 
     #endregion

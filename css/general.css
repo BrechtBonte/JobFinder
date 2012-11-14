@@ -24,6 +24,11 @@ p.phone {
     background: transparent url(../img/phone12.png) no-repeat left center;
 }
 
+p.web {
+    padding-left: 20px;
+    background: transparent url(../img/web12.png) no-repeat left center;
+}
+
 
 
 /**
@@ -218,4 +223,22 @@ body {
 article#content {
     width: 900px;
     margin: 0 auto;
+}
+
+    /**
+        Tags
+        */
+
+p.tag {
+    font-size: 11px;
+    line-height: 21px;
+    font-family: Tahoma, Verdana, Segoe, sans-serif;
+    padding: 0 10px;
+    background-color: #CBE7EF;
+    border-right: 1px solid #8eb6ba;
+    border-bottom: 1px solid #8eb6ba;
+    float: left;
+    margin-right: 15px;
+    margin-top: 10px;
+    cursor: default;
 }

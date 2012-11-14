@@ -1,0 +1,331 @@
+﻿/**
+    
+    Search Page
+
+    */
+
+
+    /**
+        Title
+        */
+
+h2 {
+    font-size: 32px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-family: Cambria, Georgia, serif;
+}
+
+
+    /**
+        Query Box
+        */
+
+article#queryBox {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 25px;
+    float: left;
+}
+
+#queryBox input {
+    font-size: 26px;
+    width: 400px;
+    float: left;
+    margin-right: 20px;
+}
+
+p#querySearch {
+    float: left;
+}
+
+#querySearch a {
+    display: block;
+    height: 40px;
+    line-height: 40px;
+    width: 90px;
+    font-size: 21px;
+    border: 1px solid #333;
+    text-align: center;
+    color: #eee;
+    background-color: #42889B;
+    font-family: Geneva, Tahoma, Verdana, sans-serif;
+}
+
+#querySearch a:hover {
+    background-color: #9FAFB3;
+    color: #fff;
+    text-decoration: none;
+}
+
+
+
+    /**
+        Register
+        */
+
+aside#registerBox {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 25px;
+    float: right;
+}
+
+p#registerButton a {
+    display: block;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 10px;
+    font-size: 21px;
+    border: 1px solid #333;
+    text-align: center;
+    color: #eee;
+    background-color: #439F5F;
+    font-family: Geneva, Tahoma, Verdana, sans-serif;
+}
+
+#registerButton a:hover {
+    background-color: #A2B7A8;
+    color: #fff;
+    text-decoration: none;
+}
+
+
+    /**
+        Recommended
+        */
+
+
+
+
+/**
+    
+    Results Page
+
+    */
+
+
+    /**
+        Filter
+        */
+
+aside#filterCont {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 15px;
+    float: left;
+    width: 190px;
+}
+
+#filterCont input.name {
+    width: 130px;
+    margin: 0;
+    margin-right: 10px;
+    float: left;
+}
+
+p#filterBtn {
+    float: right;
+}
+
+#filterBtn a {
+    display: block;
+    height: 20px;
+    line-height: 20px;
+    width: 40px;
+    font-size: 12px;
+    border: 1px solid #333;
+    text-align: center;
+    color: #eee;
+    background-color: #42889B;
+    font-family: Geneva, Tahoma, Verdana, sans-serif;
+}
+
+#filterBtn a:hover {
+    color: #fff;
+    background-color: #9FAFB3;
+    text-decoration: none;
+}
+
+
+
+
+section#resultsCont {
+    width: 650px;
+    float: right;
+}
+
+
+
+    /**
+        Sort
+        */
+
+
+
+    /**
+        Results
+        */
+
+section#results {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 15px;
+}
+
+article.result {
+    margin-bottom: 10px;
+}
+
+.result a.resultLink {
+    display: block;
+    cursor: pointer;
+}
+
+.result a.resultLink p.tag {
+    cursor: pointer;
+}
+
+.result .resultLink:hover {
+    text-decoration: none;
+}
+
+
+
+/**
+    Pageination
+    */
+
+
+
+/**
+
+    Users
+
+    */
+
+article.user.result {
+    width: 400px;
+    margin: 0 auto;
+}
+
+.user.result figure {
+    height: 50px;
+    width: 90px;
+    float: left;
+    margin-right: 15px;
+}
+
+.user.result figure img {
+    max-height: 50px;
+    max-width: 90px;
+}
+
+.user.result p.userFirstname, .user.result p.userLastname {
+    font-size: 18px;
+    color: #111;
+    font-family: "Lucida Bright", Georgia, serif;
+}
+
+.user.result .userFirstname {
+    float: left;
+    margin-right: 10px;
+}
+
+
+
+
+/**
+    
+    Companies
+
+    */
+
+article.result.company {
+    width: 500px;
+    margin: 0 auto;
+}
+
+.result.company div.hiring.True {
+    height: 32px;
+    width: 32px;
+    float: right;
+    background: transparent url(../img/flag.png) no-repeat center center;
+}
+
+.result.company figure {
+    height: 66px;
+    width: 120px;
+    margin-right: 15px;
+    float: left;
+}
+
+.result.company figure img {
+    max-height: 66px;
+    max-width: 120px;
+}
+
+.result.company p.companyName {
+    font-size: 21px;
+    height: 66px;
+    line-height: 66px;
+    color: #111;
+    font-weight: bold;
+    font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, "AppleGothic", sans-serif;
+}
+
+
+
+
+/**
+    
+    Job Offers
+
+    */
+
+#filterCont section#regions {
+    clear: both;
+    margin-top: 30px;
+}
+
+#regions input {
+    clear: left;
+}
+
+
+article.result.offer {
+    width: 600px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+
+.result.offer figure {
+    height: 66px;
+    width: 120px;
+    margin-right: 15px;
+    float: left;
+}
+
+.result.offer figure img {
+    max-height: 66px;
+    max-width: 120px;
+}
+
+.result.offer section.offerDescr {
+    float: left;
+    width: 465px;
+}
+
+.result.offer p.title {
+    float: left;
+    margin-bottom: 5px;
+}
+
+.result.offer p.company {
+    float: right;
+}
+
+.result.offer p.descr {
+    clear: both;
+    color: #111;
+}

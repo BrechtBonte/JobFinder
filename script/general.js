@@ -1,6 +1,6 @@
 ﻿function loadevent() {
 
-    if (pageLoad) pageLoad();
+    if (typeof pageLoad == 'function') pageLoad();
 
     var first = document.getElementsByClassName("firstInput")[0];
     if (first) first.focus();

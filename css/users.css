@@ -77,6 +77,7 @@ p.buttonCont {
         color: #ccc;
     }
 
+
     /**
         Tags
         */
@@ -94,16 +95,4 @@ aside#userTags {
     font-size: 24px;
     font-weight: bold;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
-
-p.tag {
-    font-size: 11px;
-    font-family: Tahoma, Verdana, Segoe, sans-serif;
-    padding: 5px 10px;
-    background-color: #CBE7EF;
-    border-right: 1px solid #8eb6ba;
-    border-bottom: 1px solid #8eb6ba;
-    float: left;
-    margin-right: 15px;
-    margin-top: 10px;
 }

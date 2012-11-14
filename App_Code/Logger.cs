@@ -54,23 +54,6 @@ public partial class Logger {
     #endregion
 
 
-    #region - User General -
-
-    public static User GetUser(int id) {
-
-        DataClassesDataContext dbo = new DataClassesDataContext();
-
-        return dbo.Users.SingleOrDefault(u => u.ID == id);
-    }
-
-    public static bool UserExists(int id) {
-
-        return GetUser(id) != null;
-    }
-
-    #endregion
-
-
     #region - Instance -
 
     public bool IsUser { get { return this.UserId != null; } }

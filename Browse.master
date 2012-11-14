@@ -1,0 +1,37 @@
+﻿<%@ Master Language="C#" MasterPageFile="~/General.master" AutoEventWireup="true" CodeFile="Browse.master.cs" Inherits="Browse" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="title" Runat="Server"><asp:ContentPlaceHolder ID="BrowseTitle" runat="server" /></asp:Content>
+
+<asp:Content ID="Content2" ContentPlaceHolderID="ExtraHead" Runat="Server">
+    <link rel="stylesheet" href="css/browse.css" />
+</asp:Content>
+
+<asp:Content ID="Content3" ContentPlaceHolderID="BodyHolder" Runat="Server">
+    <h2><asp:ContentPlaceHolder ID="HeadingCont" runat="server" /></h2>
+    <asp:MultiView ID="browseViews" ActiveViewIndex="0" runat="server">
+        <asp:View runat="server">
+            <article id="queryBox" class="clearfix">
+                <asp:Panel DefaultButton="lnkSearch" runat="server">
+                    <asp:TextBox id="txtQuery" CssClass="firstInput" runat="server" />
+                    <p id="querySearch"><asp:LinkButton ID="lnkSearch" Text="Search" OnClick="lnkSearch_Click" runat="server" /></p>
+                </asp:Panel>
+            </article>
+            <asp:ContentPlaceHolder ID="RegisterText" runat="server" />
+            <asp:ContentPlaceHolder ID="Sugested" runat="server" />
+        </asp:View>
+        <asp:View runat="server">
+            <aside id="filterCont" class="clearfix">
+                <asp:ContentPlaceHolder ID="Filter" runat="server" />
+            </aside>
+            <section id="resultsCont">
+                <section id="results">
+                    <asp:ContentPlaceHolder ID="ResultsHolder" runat="server" />
+                </section>
+                <section id="pagination">
+                    <asp:ContentPlaceHolder ID="PageinationHolder" runat="server" />
+                </section>
+            </section>
+        </asp:View>
+    </asp:MultiView>
+</asp:Content>
+
