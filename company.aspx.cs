@@ -10,9 +10,20 @@ public partial class company : System.Web.UI.Page {
 
     }
 
+
+    protected void Page_Prerender(object sender, EventArgs e) {
+
+        if (Session["regionInd"] != null) {
+
+            lstRegion.SelectedIndex = Convert.ToInt32(Session["regionInd"]);
+        }
+    }
+
+
     protected void Page_Init(object sender, EventArgs e) {
 
         int id;
+        Logger log;
 
         if (Request.QueryString["id"] == null || !int.TryParse(Request.QueryString["id"], out id) || !Company.Exists(id)) {
 
@@ -40,6 +51,33 @@ public partial class company : System.Web.UI.Page {
 
             offerRepeater.DataSource = comp.GetJobs();
             offerRepeater.DataBind();
+
+
+
+
+            if (Session["LoggerID"] != null && (log = Logger.GetLogger(Session["LoggerID"])) != null && log.IsCompany) {
+
+                editLogo.Visible = true;
+                editDescription.Visible = true;
+                editInfo.Visible = true;
+
+                txtDescription.Text = comp.Description;
+                txtStreet.Text = comp.Street;
+                txtCity.Text = comp.City;
+                txtEmail.Text = comp.Email;
+                txtWebsite.Text = comp.Website;
+
+                foreach (Region reg in Region.GetRegions()) {
+                    lstRegion.Items.Add(new ListItem(reg.Name, reg.ID.ToString()));
+                }
+                Session["regionInd"] = lstRegion.Items.IndexOf(lstRegion.Items.FindByValue(comp.RegionId.ToString()));
+            }
+
+        } else if (Session["LoggerID"] != null && (log = Logger.GetLogger(Session["LoggerID"])) != null && log.IsCompany) {
+
+            foreach (Region reg in Region.GetRegions()) {
+                lstRegion.Items.Add(new ListItem(reg.Name, reg.ID.ToString()));
+            }
         }
     }
 
@@ -65,5 +103,40 @@ public partial class company : System.Web.UI.Page {
         if (e.CommandName == "more") {
             Response.Redirect("joboffer.aspx?id=" + ((HiddenField)e.Item.FindControl("HiddenId")).Value);
         }
+    }
+
+    protected void Unnamed_Command(object sender, CommandEventArgs e) {
+        switch (e.CommandArgument.ToString()) {
+
+            case "logo": logoEdit.ActiveViewIndex = 1; break;
+            case "description": descriptionEdit.ActiveViewIndex = 1; break;
+            case "info": infoEdit.ActiveViewIndex = 1; break;
+        }
+    }
+
+    protected void Cancel_Command(object sender, CommandEventArgs e) {
+        switch (e.CommandArgument.ToString()) {
+
+            case "logo":
+                logoEdit.ActiveViewIndex = 0;
+                break;
+
+            case "description":
+                txtDescription.Text = companyDescription.Text.Replace("</p>", "").Replace("<p>", "");
+                descriptionEdit.ActiveViewIndex = 0;
+                break;
+
+            case "info":
+                txtStreet.Text = lblStreet.Text;
+                txtCity.Text = lblCity.Text;
+                txtEmail.Text = lnkEmail.Text;
+                txtWebsite.Text = lnkWebsite.Text;
+                infoEdit.ActiveViewIndex = 0;
+                break;
+        }
+    }
+
+    protected void Edit_Command(object sender, CommandEventArgs e) {
+
     }
 }

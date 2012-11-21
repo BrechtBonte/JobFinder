@@ -12,7 +12,7 @@ public partial class Region {
 
         DataClassesDataContext dbo = new DataClassesDataContext();
 
-        return dbo.Regions.ToList();
+        return dbo.Regions.OrderBy(r => r.Name).ToList();
     }
 
     public static Region GetRegion(int id) {

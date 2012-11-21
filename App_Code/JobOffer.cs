@@ -21,6 +21,13 @@ public partial class JobOffer {
         return dbo.JobOffers.SingleOrDefault(j => j.ID == id);
     }
 
+    public static JobOffer GetOffer(Company comp, string title) {
+
+        DataClassesDataContext dbo = new DataClassesDataContext();
+
+        return dbo.JobOffers.SingleOrDefault(o => o.CompanyId == comp.ID && o.Title == title);
+    }
+
     public static bool Exists(int id) {
 
         return GetOffer(id) != null;
@@ -37,7 +44,7 @@ public partial class JobOffer {
 
         if (date != null) offers = offers.Where(o => o.Added >= date);
 
-        return offers.ToList<JobOffer>();
+        return offers.OrderByDescending(o => o.Added).ToList<JobOffer>();
     }
 
     public static List<JobOffer> FindOffers(string title, IEnumerable<Region> regions) {
@@ -70,6 +77,8 @@ public partial class JobOffer {
 
     public string TagPs {
         get {
+            if (this.GetTags().Count == 0) return "";
+
             return "<p class=\"tag\">" + string.Join("</p>\n<p class=\"tag\">", this.GetTags().Take(TAGS)) + "</p>";
         }
     }

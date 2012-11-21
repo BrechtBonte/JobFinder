@@ -1,5 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="STUDENT_brecht.bonte@kahosl.be" Class="DataClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Connection Mode="WebSettings" ConnectionString="Data Source=pub.ikdoeict.be,14330;Initial Catalog=STUDENT_brecht.bonte@kahosl.be;Persist Security Info=True;User ID=STUDENT_SQLLow_brecht.bonte@kahosl.be" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="STUDENT_brecht_bonte_kahosl_beConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Applications" Member="Applications">
+    <Type Name="Application">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="OfferId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Applied" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Motivation" Type="System.String" DbType="Text NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Association Name="JobOffer_Application" Member="JobOffer" ThisKey="OfferId" OtherKey="ID" Type="JobOffer" IsForeignKey="true" />
+      <Association Name="User_Application" Member="User" ThisKey="UserId" OtherKey="ID" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
   <Table Name="dbo.Companies" Member="Companies">
     <Type Name="Company">
       <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -7,7 +18,7 @@
       <Column Name="Description" Type="System.String" DbType="Text NOT NULL" CanBeNull="false" UpdateCheck="Never" />
       <Column Name="Logo" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="Website" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="Email" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="Street" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="City" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="RegionId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
@@ -16,23 +27,12 @@
       <Association Name="Region_Company" Member="Region" ThisKey="RegionId" OtherKey="ID" Type="Region" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.Applications" Member="Applications">
-    <Type Name="Application">
-      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="UserId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="OfferId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Applied" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="Motivation" Type="System.String" DbType="Text NOT NULL" CanBeNull="false" UpdateCheck="Never" />
-      <Association Name="JobOffer_Application" Member="JobOffer" ThisKey="OfferId" OtherKey="ID" Type="JobOffer" IsForeignKey="true" />
-      <Association Name="User_Application" Member="User" ThisKey="UserId" OtherKey="ID" Type="User" IsForeignKey="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.JobOffers" Member="JobOffers">
     <Type Name="JobOffer">
-      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="Title" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
       <Column Name="Description" Type="System.String" DbType="Text NOT NULL" CanBeNull="false" UpdateCheck="Never" />
-      <Column Name="Added" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Added" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="CompanyId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="ContactId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="AlternateRegionId" Type="System.Int32" DbType="Int" CanBeNull="true" />
@@ -42,6 +42,37 @@
       <Association Name="Company_JobOffer" Member="Company" ThisKey="CompanyId" OtherKey="ID" Type="Company" IsForeignKey="true" />
       <Association Name="Region_JobOffer" Member="Region" ThisKey="AlternateRegionId" OtherKey="ID" Type="Region" IsForeignKey="true" />
       <Association Name="User_JobOffer" Member="User" ThisKey="ContactId" OtherKey="ID" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Loggers" Member="Loggers">
+    <Type Name="Logger">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Password" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Activation" Type="System.String" DbType="Char(20) NOT NULL" CanBeNull="false" />
+      <Column Name="UserId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CompanyId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Activated" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Salt" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="LastLogin" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="LoginBuff" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="Company_Logger" Member="Company" ThisKey="CompanyId" OtherKey="ID" Type="Company" IsForeignKey="true" />
+      <Association Name="User_Logger" Member="User" ThisKey="UserId" OtherKey="ID" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Messages" Member="Messages">
+    <Type Name="Message">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FromId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ToId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Subject" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Message" Member="Message1" Type="System.String" DbType="Text NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="FromVisible" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="ToVisible" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="[Read]" Member="Read" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Sent" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="User_Message" Member="User" ThisKey="FromId" OtherKey="ID" Type="User" IsForeignKey="true" />
+      <Association Name="User_Message1" Member="User1" ThisKey="ToId" OtherKey="ID" Type="User" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.OfferHasTag" Member="OfferHasTags">
@@ -58,13 +89,6 @@
       <Column Name="Name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
       <Association Name="Region_Company" Member="Companies" ThisKey="ID" OtherKey="RegionId" Type="Company" />
       <Association Name="Region_JobOffer" Member="JobOffers" ThisKey="ID" OtherKey="AlternateRegionId" Type="JobOffer" />
-    </Type>
-  </Table>
-  <Table Name="dbo.SysParams" Member="SysParams">
-    <Type Name="SysParam">
-      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Name" Type="System.String" DbType="VarChar(25) NOT NULL" CanBeNull="false" />
-      <Column Name="Value" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
   <Table Name="dbo.Tags" Member="Tags">
@@ -90,31 +114,17 @@
       <Column Name="Firstname" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
       <Column Name="Lastname" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
       <Column Name="Email" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="Telephone" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Telephone" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
       <Column Name="Cv" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="Description" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
       <Column Name="ShowMail" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Association Name="User_Application" Member="Applications" ThisKey="ID" OtherKey="UserId" Type="Application" />
       <Association Name="User_JobOffer" Member="JobOffers" ThisKey="ID" OtherKey="ContactId" Type="JobOffer" />
-      <Association Name="User_UserInterestedIn" Member="UserInterestedIns" ThisKey="ID" OtherKey="UserId" Type="UserInterestedIn" />
       <Association Name="User_Logger" Member="Loggers" ThisKey="ID" OtherKey="UserId" Type="Logger" />
-      <Association Name="User_UserSavesOffer" Member="UserSavesOffers" ThisKey="ID" OtherKey="UserId" Type="UserSavesOffer" />
       <Association Name="User_Message" Member="Messages" ThisKey="ID" OtherKey="FromId" Type="Message" />
       <Association Name="User_Message1" Member="Messages1" ThisKey="ID" OtherKey="ToId" Type="Message" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Loggers" Member="Loggers">
-    <Type Name="Logger">
-      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Email" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="Password" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="Activation" Type="System.String" DbType="Char(20) NOT NULL" CanBeNull="false" />
-      <Column Name="UserId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="CompanyId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Activated" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="Salt" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Association Name="Company_Logger" Member="Company" ThisKey="CompanyId" OtherKey="ID" Type="Company" IsForeignKey="true" />
-      <Association Name="User_Logger" Member="User" ThisKey="UserId" OtherKey="ID" Type="User" IsForeignKey="true" />
+      <Association Name="User_UserInterestedIn" Member="UserInterestedIns" ThisKey="ID" OtherKey="UserId" Type="UserInterestedIn" />
+      <Association Name="User_UserSavesOffer" Member="UserSavesOffers" ThisKey="ID" OtherKey="UserId" Type="UserSavesOffer" />
     </Type>
   </Table>
   <Table Name="dbo.UserSavesOffer" Member="UserSavesOffers">
@@ -124,21 +134,6 @@
       <Column Name="Date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Association Name="JobOffer_UserSavesOffer" Member="JobOffer" ThisKey="OfferId" OtherKey="ID" Type="JobOffer" IsForeignKey="true" />
       <Association Name="User_UserSavesOffer" Member="User" ThisKey="UserId" OtherKey="ID" Type="User" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Messages" Member="Messages">
-    <Type Name="Message">
-      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="FromId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="ToId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Subject" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="Message" Member="Message1" Type="System.String" DbType="Text NOT NULL" CanBeNull="false" UpdateCheck="Never" />
-      <Column Name="FromVisible" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="ToVisible" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="[Read]" Member="Read" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="Sent" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Association Name="User_Message" Member="User" ThisKey="FromId" OtherKey="ID" Type="User" IsForeignKey="true" />
-      <Association Name="User_Message1" Member="User1" ThisKey="ToId" OtherKey="ID" Type="User" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

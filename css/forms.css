@@ -26,6 +26,17 @@ section.formcont {
     margin-left: 70px;
 }
 
+.formcont h2.hasSub {
+    margin-bottom: 10px;
+}
+
+.formcont h3 {
+    font-size: 18px;
+    font-family: "Calisto MT", "Bookman Old Style", Bookman, "Goudy Old Style", Garamond, "Hoefler Text", "Bitstream Charter", Georgia, serif;
+    margin-bottom: 50px;
+    margin-left: 100px;
+}
+
 .formcont article.form {
     width: 500px;
     margin: 0 auto;
@@ -56,4 +67,72 @@ section.formcont {
 
 .inputBlock.buttons p {
     font-size: 11px;
+}
+
+
+
+/**
+    Input
+    */
+
+textarea {
+    width: 350px;
+    height: 150px;
+}
+
+
+
+
+/**
+    buttons
+    */
+
+p.cancelBtn a, p.submitBtn a {
+    display: block;
+    width: 98px;
+    height: 23px;
+    line-height: 23px;
+    border: 1px solid #333;
+    text-align: center;
+    color: #eee;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    background-color: #42889B;
+    margin-top: 10px;
+}
+
+p.cancelBtn a:hover, p.submitBtn a:hover {
+    background-color: #9FAFB3;
+    color: #fff;
+    text-decoration: none;
+}
+
+p.cancelBtn {
+    float: left;
+}
+
+p.submitBtn a {
+    background-color: #439F5F;
+    float: right;
+}
+
+p.submitBtn a:hover {
+    background-color: #A2B7A8;
+}
+
+
+
+
+/**
+    Success
+    */
+
+p.success {
+    margin-top: 100px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+p.successLink {
+    text-align: center;
+    margin-bottom: 100px;
 }

@@ -26,11 +26,11 @@ public partial class General : System.Web.UI.MasterPage {
                 int messages = log.User.CountNewMessages();
 
                 if (messages != 0)
-                    MessagesLabel.Text = " (" + messages + ")";
+                    MessagesLabel.Text = string.Format(" ({0})", messages);
 
                 userLinkName.Text = log.Name;
 
-                profileLink.PostBackUrl = "user.aspx?id=" + log.User.ID;
+                profileLink.PostBackUrl = string.Format("user.aspx?id={0}", log.UserId);
 
             } else {
 
@@ -38,7 +38,9 @@ public partial class General : System.Web.UI.MasterPage {
 
                 companyLinkLabel.Text = log.Name;
 
-                companyProfileLink.PostBackUrl = "company.aspx?id=" + log.Company.ID;
+                companyProfileLink.PostBackUrl = string.Format("company.aspx?id={0}", log.CompanyId);
+
+                companyApplications.PostBackUrl = string.Format("applications.aspx?company={0}", log.CompanyId);
             }
         }
     }

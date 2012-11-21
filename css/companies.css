@@ -110,6 +110,11 @@ section#aboutCont {
     float: left;
 }
 
+#companyDescriptionCont p {
+    margin-bottom: 7px;
+    text-align: justify;
+}
+
 #aboutCont aside#contactInfo {
     float: right;
     width: 300px;

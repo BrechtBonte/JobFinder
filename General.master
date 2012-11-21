@@ -10,6 +10,10 @@
     <link rel="stylesheet" href="css/general.css" />
     <script type="text/javascript" src="script/general.js"></script>
     <asp:ContentPlaceHolder ID="ExtraHead" runat="server"></asp:ContentPlaceHolder>
+
+    <!--[if lt IE 9]>
+        <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
 </head>
 <body>
     <form method="post" enctype="multipart/form-data" runat="server">
@@ -43,6 +47,8 @@
                                     </section>
                                     <ul id="companyDropDown" class="dropdown">
                                         <li><asp:LinkButton ID="companyProfileLink" CausesValidation="false" Text="My Profile" runat="server" /></li>
+                                        <li><a href="addjoboffer.aspx">New job offer</a></li>
+                                        <li><asp:LinkButton ID="companyApplications" CausesValidation="false" Text="Applications" runat="server" /></li>
                                         <li><asp:LinkButton ID="companyLogOutLink" CausesValidation="false" Text="Log Out" OnClick="logoutLink_Click" runat="server" /></li>
                                     </ul>
                                 </li>

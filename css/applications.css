@@ -1,0 +1,147 @@
+﻿/**
+    
+    Application Details
+
+    */
+
+article#applicationCont {
+    background: #fff;
+    border: 1px solid #ccc;
+    padding: 25px;
+}
+
+#applicationCont h2 {
+    font-size: 26px;
+    margin-bottom: 40px;
+    font-family: "Calisto MT", "Bookman Old Style", Bookman, "Goudy Old Style", Garamond, "Hoefler Text", "Bitstream Charter", Georgia, serif;
+}
+
+
+
+
+/**
+    User Details
+    */
+
+#applicationCont > a {
+    display: block;
+    width: 400px;
+    float: left;
+    color: #000;
+}
+
+#applicationCont > a p.tag {
+    cursor: pointer;
+}
+
+#applicationCont > a:hover {
+    text-decoration: none;
+}
+
+section#userHead {
+    margin-bottom: 15px;
+}
+
+#userHead figure {
+    float: left;
+    margin-right: 20px;
+}
+
+#userHead figure img {
+    max-height: 50px;
+    max-width: 90px;
+}
+
+#userHead p#userName {
+    font-size: 18px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+#userHead section#userContact {
+    float: left;
+}
+
+section#descriptionText {
+    margin-bottom: 10px;
+}
+
+
+
+/**
+    Motivation
+    */
+
+section#motivationCont {
+    width: 400px;
+    padding: 15px;
+    border: 1px dashed #808080;
+    float: right;
+}
+
+
+
+
+
+/**
+    
+    Browse view
+
+    */
+
+article#applicationsCont {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 20px;
+}
+
+#applicationsCont section#results {
+    width: 700px;
+    margin: 0 auto;
+}
+
+article.application {
+    margin: 7px 0;
+}
+
+.application a {
+    display: block;
+    border: 1px solid #808080;
+    padding: 15px;
+    color: #000;
+}
+
+.application a:hover {
+    text-decoration: none;
+}
+
+.application h3 {
+    font-size: 21px;
+    font-family: "Calisto MT", "Bookman Old Style", Bookman, "Goudy Old Style", Garamond, "Hoefler Text", "Bitstream Charter", Georgia, serif;
+    float: left;
+    line-height: 25px;
+}
+
+
+
+
+.application section.applUser { 
+    float: right;
+}
+
+
+.application figure {
+    float: left;
+    margin-right: 10px;
+}
+
+.application figure img {
+    max-width: 45px;
+    max-height: 25px;
+}
+
+.application p.fullName {
+    float: left;
+    font-size: 18px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    line-height: 25px;
+}

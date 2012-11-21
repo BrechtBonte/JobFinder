@@ -32,7 +32,7 @@ public partial class joboffer : System.Web.UI.Page {
             jobTitle.Text = job.Title;
             lblRegion.Text = job.GetRegion().Name;
             litDescription.Text = "<p>" + string.Join("</p>\n<p>", job.Description.Split('\n')) + "</p>\n";
-            litTags.Text = "<p class=\"tag\">" + string.Join("</p>\n<p class=\"tag\">", job.GetTags()) + "</p>\n";
+            if(job.GetTags().Count > 0) litTags.Text = "<p class=\"tag\">" + string.Join("</p>\n<p class=\"tag\">", job.GetTags()) + "</p>\n";
 
             if (Session["LoggerID"] != null && Logger.GetLogger(Session["LoggerID"]).IsUser) {
 
@@ -77,7 +77,7 @@ public partial class joboffer : System.Web.UI.Page {
     }
 
     protected void Apply_Command(object sender, CommandEventArgs e) {
-
+        Response.Redirect(string.Format("apply.aspx?offer={0}", e.CommandArgument));
     }
 
     protected void mailLink_Command(object sender, CommandEventArgs e) {

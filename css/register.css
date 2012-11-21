@@ -1,0 +1,117 @@
+﻿
+article#registerChoice {
+    width: 600px;
+    margin: 0 auto;
+    margin-top: 100px;
+}
+
+
+
+p#userLink, p#companyLink {
+    padding: 40px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+}
+
+p#userLink {
+    float: left;
+}
+
+p#companyLink {
+    float: right;
+}
+
+
+p#userLink a, p#companyLink a {
+    display: block;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 10px;
+    font-size: 21px;
+    border: 1px solid #333;
+    text-align: center;
+    color: #eee;
+    font-family: Geneva, Tahoma, Verdana, sans-serif;
+}
+
+p#userLink a {
+    background-color: #42889B;
+}
+
+p#companyLink a {
+    background-color: #439F5F;
+}
+
+#userLink a:hover {
+    background-color: #9FAFB3;
+    color: #fff;
+    text-decoration: none;
+}
+
+#companyLink a:hover {
+    background-color: #A2B7A8;
+    color: #fff;
+    text-decoration: none;
+}
+
+
+
+article.form {
+    padding: 15px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+}
+
+section.smallForm {
+    width: 400px;
+    margin: 50px auto;
+}
+
+
+p.nextBtn a, p.prevBtn a, p.submitBtn a {
+    display: block;
+    width: 98px;
+    height: 23px;
+    line-height: 23px;
+    border: 1px solid #333;
+    text-align: center;
+    color: #eee;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    background-color: #42889B;
+    margin-top: 10px;
+}
+
+p.nextBtn a:hover, p.prevBtn a:hover, p.submitBtn a:hover {
+    background-color: #9FAFB3;
+    color: #fff;
+    text-decoration: none;
+}
+
+p.nextBtn {
+    float: right;
+}
+
+p.prevBtn {
+    float: left;
+}
+
+p.submitBtn a {
+    background-color: #439F5F;
+    float: right;
+}
+
+p.submitBtn a:hover {
+    background-color: #A2B7A8;
+}
+
+
+
+input[type="checkbox"] {
+    margin-top: 6px;
+    float: left;
+}
+
+textarea {
+    width: 300px;
+    height: 200px;
+}

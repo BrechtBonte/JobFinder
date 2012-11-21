@@ -40,6 +40,13 @@ public partial class User {
         return GetUser(id) != null;
     }
 
+    public static bool NameExists(string name) {
+
+        DataClassesDataContext dbo = new DataClassesDataContext();
+
+        return dbo.Users.SingleOrDefault(u => u.Firstname + " " + u.Lastname == name) != null;
+    }
+
 
     public static List<User> FindUsers(string name, int start, int amount) {
 
@@ -56,6 +63,27 @@ public partial class User {
         return dbo.Users.Where(u => string.Compare(u.Firstname + " " + u.Lastname, name, true) == 0).ToList();
     }
 
+    public static bool ImageExists(string name) {
+
+        DataClassesDataContext dbo = new DataClassesDataContext();
+
+        return dbo.Users.SingleOrDefault(u => u.ImageName == name) != null;
+    }
+
+    public static bool CVExists(string name) {
+
+        DataClassesDataContext dbo = new DataClassesDataContext();
+
+        return dbo.Users.SingleOrDefault(u => u.Cv == name) != null;
+    }
+
+    public static List<User> GetAll() {
+
+        DataClassesDataContext dbo = new DataClassesDataContext();
+
+        return dbo.Users.ToList();
+    }
+
     #endregion
 
 
@@ -63,6 +91,8 @@ public partial class User {
 
     public string TagPs {
         get {
+            if (this.GetTags().Count == 0) return "";
+
             return "<p class=\"tag\">" + string.Join("</p>\n<p class=\"tag\">", this.GetTags().Take(TAGS)) + "</p>";
         }
     }
@@ -122,6 +152,7 @@ public partial class User {
         mss.FromVisible = true;
         mss.ToVisible = true;
         mss.Read = false;
+        mss.Sent = DateTime.Now;
 
         dbo.Messages.InsertOnSubmit(mss);
         dbo.SubmitChanges();
@@ -169,6 +200,26 @@ public partial class User {
         DataClassesDataContext dbo = new DataClassesDataContext();
 
         return dbo.UserSavesOffers.SingleOrDefault(s => s.OfferId == offer.ID && s.UserId == this.ID) != null;
+    }
+
+    #endregion
+
+
+    #region - Applications -
+
+    public void ApplyTo(JobOffer offer, string motivation) {
+
+        DataClassesDataContext dbo = new DataClassesDataContext();
+
+        Application app = new Application();
+        app.UserId = this.ID;
+        app.OfferId = offer.ID;
+        app.Motivation = motivation;
+        app.Applied = DateTime.Now;
+
+        dbo.Applications.InsertOnSubmit(app);
+
+        dbo.SubmitChanges();
     }
 
     #endregion

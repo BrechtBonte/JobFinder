@@ -44,14 +44,18 @@
         </article>
         <section id="interButtons" class="clearfix">
             <asp:Panel ID="buttonPanel" Visible="false" runat="server">
-                <p class="buttonCont"><asp:LinkButton ID="PrivateMessageUser" Text="Send PM" runat="server" /></p>
+                <asp:Panel ID="pmPanel" Visible="false" runat="server">
+                    <p class="buttonCont"><asp:LinkButton ID="PrivateMessageUser" Text="Send PM" runat="server" /></p>
+                </asp:Panel>
                 <p class="buttonCont"><asp:LinkButton ID="CVUser" Text="Download CV" OnCommand="CVUser_Click" runat="server" /></p>
             </asp:Panel>
         </section>
     </section>
     <aside id="userTags">
         <h3>Skills</h3>
-        <asp:Panel ID="tagPanel" CssClass="clearfix" runat="server" />
+        <section class="clearfix">
+            <asp:Literal ID="tagPanel" runat="server" />
+        </section>
     </aside>
 </asp:Content>
 

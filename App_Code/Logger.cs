@@ -51,6 +51,98 @@ public partial class Logger {
         return dbo.Loggers.SingleOrDefault(l => l.Salt == salt) != null;
     }
 
+    private static bool ActivationExists(string code) {
+
+        DataClassesDataContext dbo = new DataClassesDataContext();
+
+        return dbo.Loggers.SingleOrDefault(l => l.Activation == code) != null;
+    }
+
+    public static bool MailExists(string email) {
+
+        DataClassesDataContext dbo = new DataClassesDataContext();
+
+        return dbo.Loggers.SingleOrDefault(l => l.Email == email) != null;
+    }
+
+    public static Logger CreateUser(string email, string password, string imageName, string firstname, string lastname, string mail, string telephone, string cv, string description, bool showMail) {
+
+        KeyValuePair<string, string> pass;
+        do {
+            pass = Encrypt(password);
+        } while (SaltExists(pass.Key));
+
+        DataClassesDataContext dbo = new DataClassesDataContext();
+
+        User usr = new User();
+        usr.ImageName = imageName;
+        usr.Firstname = firstname;
+        usr.Lastname = lastname;
+        if(mail != null && mail != "") usr.Email = mail.ToString();
+        if(telephone != null && telephone != "") usr.Telephone = telephone.ToString();
+        usr.Cv = cv;
+        if(description != null && description != "") usr.Description = description.ToString();
+
+        dbo.Users.InsertOnSubmit(usr);
+
+        dbo.SubmitChanges();
+
+        Logger log = new Logger();
+        log.Email = email;
+        log.Salt = pass.Key;
+        log.Password = pass.Value;
+        do { log.Activation = GetActivationString(); } while (ActivationExists(log.Activation));
+        log.Activated = true;
+        log.UserId = usr.ID;
+        log.LastLogin = DateTime.Now;
+        log.LoginBuff = DateTime.Now;
+
+        dbo.Loggers.InsertOnSubmit(log);
+
+        dbo.SubmitChanges();
+
+        return log;
+    }
+
+    public static Logger CreateCompany(string email, string password, string name, string description, string logo, string website, string street, string city, int region) {
+
+        KeyValuePair<string, string> pass;
+        do {
+            pass = Encrypt(password);
+        } while (SaltExists(pass.Key));
+
+        DataClassesDataContext dbo = new DataClassesDataContext();
+
+        Company comp = new Company();
+        comp.Name = name;
+        comp.Description = description;
+        comp.Logo = logo;
+        comp.Website = website;
+        comp.Street = street;
+        comp.City = city;
+        comp.RegionId = region;
+
+        dbo.Companies.InsertOnSubmit(comp);
+
+        dbo.SubmitChanges();
+
+        Logger log = new Logger();
+        log.Email = email;
+        log.Salt = pass.Key;
+        log.Password = pass.Value;
+        do { log.Activation = GetActivationString(); } while (ActivationExists(log.Activation));
+        log.Activated = true;
+        log.CompanyId = comp.ID;
+        log.LastLogin = DateTime.Now;
+        log.LoginBuff = DateTime.Now;
+
+        dbo.Loggers.InsertOnSubmit(log);
+
+        dbo.SubmitChanges();
+
+        return log;
+    }
+
     #endregion
 
 
@@ -72,11 +164,35 @@ public partial class Logger {
         return this.Password == Encrypt(this.Salt, pass);
     }
 
+    public void LoggedIn() {
+
+        DataClassesDataContext dbo = new DataClassesDataContext();
+
+        this.LastLogin = this.LoginBuff;
+        this.LoginBuff = DateTime.Now;
+
+        dbo.SubmitChanges();
+    }
+
     #endregion
+
 
     #region - private -
 
-    private KeyValuePair<string, string> Encrypt(string password) {
+    private static Random random = new Random((int)DateTime.Now.Ticks);
+    private const int ACTIVATION_CHARS = 20;
+    private static string  GetActivationString() {
+        StringBuilder builder = new StringBuilder();
+        char ch;
+        for (int i = 0; i < ACTIVATION_CHARS; i++) {
+            ch = Convert.ToChar(Convert.ToInt32(Math.Floor(26 * random.NextDouble() + 65)));                 
+            builder.Append(ch);
+        }
+
+        return builder.ToString();
+    }
+
+    private static KeyValuePair<string, string> Encrypt(string password) {
 
         RNGCryptoServiceProvider csprng = new RNGCryptoServiceProvider();
         byte[] salt = new byte[SALT_BYTES];
@@ -87,7 +203,7 @@ public partial class Logger {
         return new KeyValuePair<string, string>(saltStr, Encrypt(saltStr, password));
     }
 
-    private string Encrypt(string salt, string password) {
+    private static string Encrypt(string salt, string password) {
 
         Rfc2898DeriveBytes passKey = new Rfc2898DeriveBytes(password, Encoding.ASCII.GetBytes(salt), ITERATIONS);
         byte[] hash = passKey.GetBytes(HASH_Bytes);

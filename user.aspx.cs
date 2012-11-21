@@ -46,14 +46,15 @@ public partial class user : System.Web.UI.Page {
 
                 phonenr.Text = usr.Telephone;
 
-                PrivateMessageUser.PostBackUrl = "inbox.aspx?mode=new&to=" + usr.ID;
+                Logger log;
+                if((log = Logger.GetLogger(Session["LoggerID"])) != null && log.IsUser) {
+                    pmPanel.Visible = true;
+                    PrivateMessageUser.PostBackUrl = "inbox.aspx?mode=new&to=" + usr.ID;
+                }
                 CVUser.CommandArgument = usr.Cv;
             }
 
-            foreach (Tag tag in usr.GetTags()) {
-
-                tagPanel.Controls.Add(new LiteralControl("<p class=\"tag\">" + tag.Name + "</p>"));
-            }
+            if(usr.GetTags().Count > 0) tagPanel.Text = string.Format("<p class=\"tag\">{0}</p>\n", string.Join("</p>\n<p class=\"tag\">", usr.GetTags()));
         }
     }
 

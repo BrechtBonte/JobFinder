@@ -54,6 +54,11 @@ section#descriptionText {
     margin-top: 35px;
 }
 
+#descriptionText p {
+    margin-bottom: 7px;
+    text-align: justify;
+}
+
 section#contactInfo {
     margin-top: 15px;
 }

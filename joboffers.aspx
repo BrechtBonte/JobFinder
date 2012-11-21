@@ -12,6 +12,11 @@
                 <p id="registerButton"><asp:LinkButton ID="lnkSaved" Text="View saved job offers" OnClick="ShowSaved" runat="server" /></p>
             </aside>
         </asp:View>
+        <asp:View runat="server">
+            <aside id="registerBox">
+                <p id="registerButton"><a href="addjoboffer.aspx">Add a new job offer</a></p>
+            </aside>
+        </asp:View>
     </asp:MultiView>
 </asp:Content>
 

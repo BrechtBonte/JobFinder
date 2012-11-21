@@ -123,6 +123,11 @@ public partial class joboffers : System.Web.UI.Page {
                 resultRepeater.DataBind();
             }
         }
+
+        if (!IsPostBack && Session["LoggerID"] != null && Logger.GetLogger(Session["LoggerID"]).IsCompany) {
+
+            registerViews.ActiveViewIndex = 2;
+        }
     }
 
 
