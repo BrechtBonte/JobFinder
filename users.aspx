@@ -39,6 +39,6 @@
 </asp:Content>
 
 <asp:Content ID="Content7" ContentPlaceHolderID="PageinationHolder" Runat="Server">
-    <asp:Panel ID="Pages" runat="server" />
+    <asp:PlaceHolder ID="Pages" runat="server" />
 </asp:Content>
 

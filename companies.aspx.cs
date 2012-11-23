@@ -15,13 +15,17 @@ public partial class companies : System.Web.UI.Page {
 
     protected void Page_Init(object sender, EventArgs e) {
 
-        if (!this.IsPostBack && Request.QueryString["mode"] == "browse") {
+        if (Request.QueryString["mode"] == "browse") {
 
-            if (Request.QueryString["q"] != null) Response.Redirect(Request.Url.GetLeftPart(UriPartial.Path) + "?mode=browse&name=" + HttpUtility.UrlEncode(Request.QueryString["q"]));
+            if (!this.IsPostBack) {
 
-            if (Request.QueryString["name"] == null) Response.Redirect(Request.Url.GetLeftPart(UriPartial.Path));
+                if (Request.QueryString["q"] != null) Response.Redirect(Request.Url.GetLeftPart(UriPartial.Path) + "?mode=browse&name=" + HttpUtility.UrlEncode(Request.QueryString["q"]));
 
-            txtName.Text = Request.QueryString["name"];
+                if (Request.QueryString["name"] == null) Response.Redirect(Request.Url.GetLeftPart(UriPartial.Path));
+
+                txtName.Text = Request.QueryString["name"];
+            }
+
             int temp;
             int page = Request.QueryString["page"] == null || !int.TryParse(Request.QueryString["page"], out temp) ? 1 : temp;
 
@@ -35,47 +39,57 @@ public partial class companies : System.Web.UI.Page {
                 if (page > 1) {
                     LinkButton first = new LinkButton();
                     first.CommandName = "first";
-                    first.Command += page_command;
+                    first.Command += new CommandEventHandler(this.page_command);
                     first.Text = "&lt;&lt;";
+                    first.ID = "firstPage";
+                    Pages.Controls.Add(first);
 
                     LinkButton prev = new LinkButton();
                     prev.CommandName = "prev";
-                    prev.Command += page_command;
+                    prev.Command += new CommandEventHandler(this.page_command);
                     prev.Text = "&lt;";
+                    prev.ID = "prevPage";
+                    Pages.Controls.Add(prev);
 
-                    Page.Controls.Add(first);
-                    Page.Controls.Add(prev);
                 }
 
-                for (int i = 1; page - 1 <= Math.Ceiling((double)(count - 1) / (double)RESULTS); i++) {
+                for (int i = 1; i - 1 < Math.Ceiling((double)(count - 1) / (double)RESULTS); i++) {
 
                     LinkButton pg = new LinkButton();
+                    pg.ID = "page" + i.ToString();
                     pg.CommandName = "page";
                     pg.CommandArgument = i.ToString();
-                    pg.Command += page_command;
+                    pg.Command += new CommandEventHandler(this.page_command);
                     pg.Text = i.ToString();
                     pg.CssClass = "page";
+                    if (i == page) pg.CssClass += " active";
+                    Pages.Controls.Add(pg);
 
-                    Page.Controls.Add(pg);
                 }
 
-                if (page - 1 == Math.Ceiling((double)(count - 1) / (double)RESULTS)) {
+                if (page - 1 != Math.Ceiling((double)(count - 1) / (double)RESULTS)) {
                     LinkButton next = new LinkButton();
                     next.CommandName = "next";
-                    next.Command += page_command;
+                    next.Command += new CommandEventHandler(this.page_command);
                     next.Text = "&gt;";
+                    next.ID = "nextPage";
 
                     LinkButton last = new LinkButton();
                     last.CommandName = "last";
-                    last.Command += page_command;
+                    last.Command += new CommandEventHandler(this.page_command);
                     last.Text = "&gt;&gt;";
+                    last.ID = "lastPage";
 
-                    Page.Controls.Add(next);
-                    Page.Controls.Add(last);
+                    Pages.Controls.Add(next);
+                    Pages.Controls.Add(last);
                 }
             }
 
         }
+    }
+
+    public override void VerifyRenderingInServerForm(Control control) {
+        
     }
 
 
@@ -94,11 +108,11 @@ public partial class companies : System.Web.UI.Page {
 
     protected void page_command(object sender, CommandEventArgs e) {
 
-        int page = 0;
+        int page = 1;
 
         switch (e.CommandName) {
 
-            case "first": page = 0; break;
+            case "first": page = 1; break;
             case "prev": page = Convert.ToInt32(Request.QueryString["page"]) - 1; break;
             case "page": page = Convert.ToInt32(e.CommandArgument); break;
             case "next": page = Convert.ToInt32(Request.QueryString["page"]) + 1; break;

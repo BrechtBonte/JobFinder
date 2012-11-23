@@ -51,43 +51,45 @@
                     </section>
                 </asp:View>
                 <asp:View runat="server">
-                    <section class="inputBlock clearfix">
-                        <asp:Label ID="lblImage" AssociatedControlID="fileImage" Text="image:" runat="server" />
-                        <section class="formInput">
-                            <asp:FileUpload ID="fileImage" runat="server" /><br />
-                            <asp:CustomValidator ID="custImage" ValidationGroup="info" CssClass="error" Display="Dynamic" ControlToValidate="fileImage" OnServerValidate="custImage_ServerValidate" ErrorMessage="Please provide only .jpg or .png images" runat="server" />
+                    <asp:Panel DefaultButton="submitInfo" runat="server">
+                        <section class="inputBlock clearfix">
+                            <asp:Label ID="lblImage" AssociatedControlID="fileImage" Text="image:" runat="server" />
+                            <section class="formInput">
+                                <asp:FileUpload ID="fileImage" runat="server" /><br />
+                                <asp:CustomValidator ID="custImage" ValidationGroup="info" CssClass="error" Display="Dynamic" ControlToValidate="fileImage" OnServerValidate="custImage_ServerValidate" ErrorMessage="Please provide only .jpg or .png images" runat="server" />
+                            </section>
                         </section>
-                    </section>
-                    <section class="inputBlock clearfix">
-                        <asp:Label ID="lblEmail" AssociatedControlID="txtEmail" Text="email (shown):" runat="server" />
-                        <section class="formInput">
-                            <asp:TextBox ID="txtEmail" runat="server" /><br />
-                            <asp:CheckBox ID="chMail" Text="Show Email address" runat="server" />
+                        <section class="inputBlock clearfix">
+                            <asp:Label ID="lblEmail" AssociatedControlID="txtEmail" Text="email (shown):" runat="server" />
+                            <section class="formInput">
+                                <asp:TextBox ID="txtEmail" runat="server" /><br />
+                                <asp:CheckBox ID="chMail" Text="Show Email address" runat="server" />
+                            </section>
                         </section>
-                    </section>
-                    <section class="inputBlock clearfix">
-                        <asp:Label ID="lblPhone" AssociatedControlID="txtPhone" Text="Phone Number:" runat="server" />
-                        <section class="formInput">
-                            <asp:TextBox ID="txtPhone" runat="server" />
+                        <section class="inputBlock clearfix">
+                            <asp:Label ID="lblPhone" AssociatedControlID="txtPhone" Text="Phone Number:" runat="server" />
+                            <section class="formInput">
+                                <asp:TextBox ID="txtPhone" runat="server" />
+                            </section>
                         </section>
-                    </section>
-                    <section class="inputBlock clearfix">
-                        <asp:Label ID="lblCv" AssociatedControlID="fileCv" Text="Cv:" runat="server" />
-                        <section class="formInput">
-                            <asp:FileUpload ID="fileCv" runat="server" />
+                        <section class="inputBlock clearfix">
+                            <asp:Label ID="lblCv" AssociatedControlID="fileCv" Text="Cv:" runat="server" />
+                            <section class="formInput">
+                                <asp:FileUpload ID="fileCv" runat="server" />
+                            </section>
                         </section>
-                    </section>
-                    <section class="inputBlock clearfix">
-                        <asp:Label ID="lblDescr" AssociatedControlID="txtDescr" Text="Description:" runat="server" />
-                        <section class="formInput">
-                            <asp:TextBox ID="txtDescr" TextMode="MultiLine" runat="server" /><br />
-                            <asp:RequiredFieldValidator ID="reqDescr" ValidationGroup="info" CssClass="error" Display="Dynamic" ControlToValidate="txtDescr" ErrorMessage="Please enter a description" runat="server" />
+                        <section class="inputBlock clearfix">
+                            <asp:Label ID="lblDescr" AssociatedControlID="txtDescr" Text="Description:" runat="server" />
+                            <section class="formInput">
+                                <asp:TextBox ID="txtDescr" TextMode="MultiLine" runat="server" /><br />
+                                <asp:RequiredFieldValidator ID="reqDescr" ValidationGroup="info" CssClass="error" Display="Dynamic" ControlToValidate="txtDescr" ErrorMessage="Please enter a description" runat="server" />
+                            </section>
                         </section>
-                    </section>
-                    <section class="editBtns clearfix">
-                        <p class="cancelBtn"><asp:LinkButton ID="cancelInfo" CausesValidation="false" CommandName="info" OnCommand="Cancel_Command" Text="Cancel" runat="server" /></p>
-                        <p class="submitBtn"><asp:LinkButton ID="submitInfo" ValidationGroup="info" CommandName="info" OnCommand="Edit_Command" Text="Submit" runat="server" /></p>
-                    </section>
+                        <section class="editBtns clearfix">
+                            <p class="cancelBtn"><asp:LinkButton ID="cancelInfo" CausesValidation="false" CommandName="info" OnCommand="Cancel_Command" Text="Cancel" runat="server" /></p>
+                            <p class="submitBtn"><asp:LinkButton ID="submitInfo" ValidationGroup="info" CommandName="info" OnCommand="Edit_Command" Text="Submit" runat="server" /></p>
+                        </section>
+                    </asp:Panel>
                 </asp:View>
             </asp:MultiView>
         </article>
@@ -122,15 +124,17 @@
                             </ItemTemplate>
                         </asp:Repeater>
                     </section>
-                    <section id="tagText" class="inputBlock">
-                        <asp:TextBox ID="txtTag" runat="server" />
-                        <asp:RequiredFieldValidator ID="reqTag" ValidationGroup="tags" CssClass="error" Display="Dynamic" ControlToValidate="txtTag" ErrorMessage="Please enter a tag" runat="server" />
-                            <asp:CustomValidator ID="custTag" ValidationGroup="tags" CssClass="error" Display="Dynamic" ControlToValidate="txtTag" ErrorMessage="Please limit the length of the tag to 20 chars" OnServerValidate="custTag_ServerValidate" runat="server" />
-                    </section>
-                    <section class="inputBlock clearfix">
-                        <p class="cancelBtn"><asp:LinkButton ID="cancelTags" CausesValidation="false" CommandName="tags" OnCommand="Cancel_Command" Text="Back" runat="server" /></p>
-                        <p class="submitBtn"><asp:LinkButton ID="submitTag" ValidationGroup="tags" CommandName="tags" OnCommand="Edit_Command" Text="Add" runat="server" /></p>
-                    </section>
+                    <asp:Panel DefaultButton="submitTag" runat="server">
+                        <section id="tagText" class="inputBlock">
+                            <asp:TextBox ID="txtTag" runat="server" />
+                            <asp:RequiredFieldValidator ID="reqTag" ValidationGroup="tags" CssClass="error" Display="Dynamic" ControlToValidate="txtTag" ErrorMessage="Please enter a tag" runat="server" />
+                                <asp:CustomValidator ID="custTag" ValidationGroup="tags" CssClass="error" Display="Dynamic" ControlToValidate="txtTag" ErrorMessage="Please limit the length of the tag to 20 chars" OnServerValidate="custTag_ServerValidate" runat="server" />
+                        </section>
+                        <section class="inputBlock clearfix">
+                            <p class="cancelBtn"><asp:LinkButton ID="cancelTags" CausesValidation="false" CommandName="tags" OnCommand="Cancel_Command" Text="Back" runat="server" /></p>
+                            <p class="submitBtn"><asp:LinkButton ID="submitTag" ValidationGroup="tags" CommandName="tags" OnCommand="Edit_Command" Text="Add" runat="server" /></p>
+                        </section>
+                    </asp:Panel>
                 </asp:View>
             </asp:MultiView>
         </section>

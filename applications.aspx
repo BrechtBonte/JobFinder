@@ -24,7 +24,9 @@
                 </article>
                 </ItemTemplate>
             </asp:Repeater>
-            <asp:Panel ID="Pages" runat="server" />
+            <section id="pagination">
+                <asp:PlaceHolder ID="Pages" runat="server" />
+            </section>
         </section>
     </article>
 </asp:Content>

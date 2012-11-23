@@ -43,19 +43,20 @@ public partial class joboffers : System.Web.UI.Page {
                 regionPanel.Controls.Add(new LiteralControl("<br />"));
             }
 
+            // Page
+            int temp;
+            int page = Request.QueryString["page"] == null || !int.TryParse(Request.QueryString["page"], out temp) ? 1 : temp;
+
+            string title = Request.QueryString["title"] == null ? "" : Request.QueryString["title"];
+
             if (!this.IsPostBack) {
 
                 if (Request.QueryString["q"] != null) {
                     Response.Redirect(Request.Url.GetLeftPart(UriPartial.Path) + "?mode=browse&title=" + HttpUtility.UrlEncode(Request.QueryString["q"]));
                 }
 
-                // Page
-                int temp;
-                int page = Request.QueryString["page"] == null || !int.TryParse(Request.QueryString["page"], out temp) ? 1 : temp;
-
 
                 // Persistence
-                string title = Request.QueryString["title"] == null ? "" : Request.QueryString["title"];
                 txtTitle.Text = title;
 
 
@@ -63,51 +64,58 @@ public partial class joboffers : System.Web.UI.Page {
                 resultRepeater.DataSource = JobOffer.FindOffers(title, regions, (page - 1) * RESULTS, RESULTS);
                 resultRepeater.DataBind();
 
-                int count = JobOffer.FindOffers(title, regions).Count;
+            }
 
-                if (count > RESULTS) {
+            int count = JobOffer.FindOffers(title, regions).Count;
 
-                    if (page > 1) {
-                        LinkButton first = new LinkButton();
-                        first.CommandName = "first";
-                        first.Command += page_command;
-                        first.Text = "&lt;&lt;";
+            if (count > RESULTS) {
 
-                        LinkButton prev = new LinkButton();
-                        prev.CommandName = "prev";
-                        prev.Command += page_command;
-                        prev.Text = "&lt;";
+                if (page > 1) {
+                    LinkButton first = new LinkButton();
+                    first.CommandName = "first";
+                    first.Command += new CommandEventHandler(page_command);
+                    first.Text = "&lt;&lt;";
+                    first.ID = "firstPage";
 
-                        Page.Controls.Add(first);
-                        Page.Controls.Add(prev);
-                    }
+                    LinkButton prev = new LinkButton();
+                    prev.CommandName = "prev";
+                    prev.Command += new CommandEventHandler(page_command);
+                    prev.Text = "&lt;";
+                    prev.ID = "prevPage";
 
-                    for (int i = 1; page - 1 <= Math.Ceiling((double)(count - 1) / (double)RESULTS); i++) {
+                    Pages.Controls.Add(first);
+                    Pages.Controls.Add(prev);
+                }
 
-                        LinkButton pg = new LinkButton();
-                        pg.CommandName = "page";
-                        pg.CommandArgument = i.ToString();
-                        pg.Command += page_command;
-                        pg.Text = i.ToString();
-                        pg.CssClass = "page";
+                for (int i = 1; i - 1 <= Math.Ceiling((double)(count - 1) / (double)RESULTS); i++) {
 
-                        Page.Controls.Add(pg);
-                    }
+                    LinkButton pg = new LinkButton();
+                    pg.CommandName = "page";
+                    pg.CommandArgument = i.ToString();
+                    pg.Command += new CommandEventHandler(page_command);
+                    pg.Text = i.ToString();
+                    pg.CssClass = "page";
+                    if (i == page) pg.CssClass += " active";
+                    pg.ID = "page" + i.ToString();
 
-                    if (page - 1 == Math.Ceiling((double)(count - 1) / (double)RESULTS)) {
-                        LinkButton next = new LinkButton();
-                        next.CommandName = "next";
-                        next.Command += page_command;
-                        next.Text = "&gt;";
+                    Pages.Controls.Add(pg);
+                }
 
-                        LinkButton last = new LinkButton();
-                        last.CommandName = "last";
-                        last.Command += page_command;
-                        last.Text = "&gt;&gt;";
+                if (page - 1 == Math.Ceiling((double)(count - 1) / (double)RESULTS)) {
+                    LinkButton next = new LinkButton();
+                    next.CommandName = "next";
+                    next.Command += new CommandEventHandler(page_command);
+                    next.Text = "&gt;";
+                    next.ID = "nextPage";
 
-                        Page.Controls.Add(next);
-                        Page.Controls.Add(last);
-                    }
+                    LinkButton last = new LinkButton();
+                    last.CommandName = "last";
+                    last.Command += new CommandEventHandler(page_command);
+                    last.Text = "&gt;&gt;";
+                    last.ID = "lastPage";
+
+                    Pages.Controls.Add(next);
+                    Pages.Controls.Add(last);
                 }
             }
         }
@@ -166,11 +174,11 @@ public partial class joboffers : System.Web.UI.Page {
 
     protected void page_command(object sender, CommandEventArgs e) {
 
-        int page = 0;
+        int page = 1;
 
         switch (e.CommandName) {
 
-            case "first": page = 0; break;
+            case "first": page = 1; break;
             case "prev": page = Convert.ToInt32(Request.QueryString["page"]) - 1; break;
             case "page": page = Convert.ToInt32(e.CommandArgument); break;
             case "next": page = Convert.ToInt32(Request.QueryString["page"]) + 1; break;

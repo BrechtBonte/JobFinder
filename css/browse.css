@@ -329,3 +329,37 @@ article.result.offer {
     clear: both;
     color: #111;
 }
+
+
+
+
+/**
+    
+    Pagination
+
+    */
+
+section#pagination {
+    margin-top: 10px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    text-align: center;
+    padding: 5px 0;
+}
+
+#pagination a {
+    margin: 0 8px;
+}
+
+#pagination a.page {
+    margin: 0 5px;
+}
+
+#pagination a.page.active {
+    color: #000;
+    cursor: default;
+}
+
+#pagination a.page.active:hover {
+    text-decoration: none;
+}
