@@ -57,9 +57,14 @@ public partial class company : System.Web.UI.Page {
 
             if (Session["LoggerID"] != null && (log = Logger.GetLogger(Session["LoggerID"])) != null && log.IsCompany) {
 
+                submitDescription.CommandArgument = comp.ID.ToString();
+                submitInfo.CommandArgument = comp.ID.ToString();
+                submitLogo.CommandArgument = comp.ID.ToString();
+
                 editLogo.Visible = true;
                 editDescription.Visible = true;
                 editInfo.Visible = true;
+                jobofferPanel.Visible = true;
 
                 txtDescription.Text = comp.Description;
                 txtStreet.Text = comp.Street;
@@ -70,7 +75,6 @@ public partial class company : System.Web.UI.Page {
                 foreach (Region reg in Region.GetRegions()) {
                     lstRegion.Items.Add(new ListItem(reg.Name, reg.ID.ToString()));
                 }
-                Session["regionInd"] = lstRegion.Items.IndexOf(lstRegion.Items.FindByValue(comp.RegionId.ToString()));
             }
 
         } else if (Session["LoggerID"] != null && (log = Logger.GetLogger(Session["LoggerID"])) != null && log.IsCompany) {
@@ -105,8 +109,11 @@ public partial class company : System.Web.UI.Page {
         }
     }
 
+
+    #region - Edit Commands -
+
     protected void Unnamed_Command(object sender, CommandEventArgs e) {
-        switch (e.CommandArgument.ToString()) {
+        switch (e.CommandName.ToString()) {
 
             case "logo": logoEdit.ActiveViewIndex = 1; break;
             case "description": descriptionEdit.ActiveViewIndex = 1; break;
@@ -115,7 +122,7 @@ public partial class company : System.Web.UI.Page {
     }
 
     protected void Cancel_Command(object sender, CommandEventArgs e) {
-        switch (e.CommandArgument.ToString()) {
+        switch (e.CommandName.ToString()) {
 
             case "logo":
                 logoEdit.ActiveViewIndex = 0;
@@ -138,5 +145,75 @@ public partial class company : System.Web.UI.Page {
 
     protected void Edit_Command(object sender, CommandEventArgs e) {
 
+        Company comp;
+        int id;
+
+        if (int.TryParse(e.CommandArgument.ToString(), out id) && (comp = Company.GetCompany(id)) != null) {
+
+            switch (e.CommandName.ToString()) {
+
+                case "logo":
+                    Page.Validate("logo");
+                    if (Page.IsValid) {
+                        string fn = System.IO.Path.GetFileName(fileLogo.PostedFile.FileName);
+                        string temp = fn;
+                        int i = 0;
+                        while (global::User.ImageExists(temp)) {
+                            i++;
+                            temp = i + temp;
+                        }
+                        string loc = Server.MapPath("~/files/companies/imgs/" + temp);
+
+                        try {
+                            fileLogo.PostedFile.SaveAs(loc);
+                        } catch {
+                            throw; //TODO: errorhandling
+                        }
+
+                        comp.UpdateLogo(temp);
+                        companyLogo.ImageUrl = string.Format("files/companies/imgs/{0}", temp);
+                        logoEdit.ActiveViewIndex = 0;
+                    }
+                    break;
+
+                case "description":
+                    Page.Validate("description");
+                    if (Page.IsValid) {
+                        comp.UpdateDescription(txtDescription.Text);
+                        companyDescription.Text = string.Format("<p>{0}</p>\n", string.Join("</p>\n<p>", comp.Description.Split('\n')));
+                        descriptionEdit.ActiveViewIndex = 0;
+                    }
+                    break;
+
+                case "info":
+                    Page.Validate("info");
+                    if (Page.IsValid) {
+                        comp.UpdateInfo(txtStreet.Text, txtCity.Text, Convert.ToInt32(lstRegion.SelectedValue), txtEmail.Text, txtWebsite.Text);
+                        lblStreet.Text = comp.Street;
+                        lblCity.Text = comp.City;
+                        lblRegion.Text = comp.Region.Name;
+                        lnkEmail.Text = comp.Email;
+                        lnkEmail.CommandArgument = "mailto:" + comp.Email;
+                        lnkWebsite.Text = comp.Website;
+                        lnkWebsite.CommandArgument = "http://" + comp.Website;
+
+                        infoEdit.ActiveViewIndex = 0;
+                    }
+                    break;
+            }
+        } else {
+
+            Cancel_Command(null, new CommandEventArgs(e.CommandName, null));
+        }
     }
+
+    protected void custLogo_ServerValidate(object source, ServerValidateEventArgs args) {
+        if (fileLogo.HasFile) {
+            if (fileLogo.PostedFile.ContentType.ToLower() != "image/jpg" && fileLogo.PostedFile.ContentType.ToLower() != "image/jpeg" && fileLogo.PostedFile.ContentType.ToLower() != "image/png")
+                args.IsValid = false;
+        }
+    }
+
+
+    #endregion
 }

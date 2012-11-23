@@ -34,7 +34,10 @@ public partial class login : System.Web.UI.Page
 
         if (Page.IsValid) {
 
-            Session["LoggerID"] = Logger.GetLogger(txtEmail.Text).ID;
+            Logger log = Logger.GetLogger(txtEmail.Text);
+
+            log.LoggedIn();
+            Session["LoggerID"] = log.ID;
             Response.Redirect("default.aspx");
         }
     }

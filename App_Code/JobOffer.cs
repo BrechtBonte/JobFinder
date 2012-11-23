@@ -62,12 +62,24 @@ public partial class JobOffer {
         return FindOffers(title, regions, null, start, amount);
     }
 
+    public static int Count() {
 
+        DataClassesDataContext dbo = new DataClassesDataContext();
+
+        return dbo.JobOffers.Count();
+    }
+
+    public static List<JobOffer> GetLatest(int count) {
+
+        DataClassesDataContext dbo = new DataClassesDataContext();
+
+        return dbo.JobOffers.OrderByDescending(o => o.Added).Take(count).ToList();
+    }
 
     #endregion
 
 
-    #region - Instance -
+    #region - Properties -
 
     public string FirstLine {
         get {
@@ -86,6 +98,11 @@ public partial class JobOffer {
     public string CompanyName { get { return this.Company.Name; } }
 
     public string CompanyLogo { get { return this.Company.Logo; } }
+
+    #endregion
+
+
+    #region - Instance -
 
     public List<Tag> GetTags() {
 
@@ -108,6 +125,78 @@ public partial class JobOffer {
         if (this.AlternateRegionId != null) return this.Region;
 
         else return this.Company.Region;
+    }
+
+    #endregion
+
+
+    #region - Update -
+
+    public void UpdateInfo(string title, int? region, int? contact) {
+
+        DataClassesDataContext dbo = new DataClassesDataContext();
+
+        JobOffer job = dbo.JobOffers.Single(j => j.ID == this.ID);
+
+        job.Title = title;
+        job.AlternateRegionId = region;
+        job.ContactId = contact;
+
+        dbo.SubmitChanges();
+    }
+
+    public void UpdateDescr(string description) {
+
+        DataClassesDataContext dbo = new DataClassesDataContext();
+
+        JobOffer job = dbo.JobOffers.Single(j => j.ID == this.ID);
+
+        job.Description = description;
+
+        dbo.SubmitChanges();
+    }
+
+    public void AddTag(string name) {
+
+        DataClassesDataContext dbo = new DataClassesDataContext();
+
+        Tag tag = dbo.Tags.SingleOrDefault(t => System.Data.Linq.SqlClient.SqlMethods.Like(t.Name, name));
+
+        if (tag == null) {
+
+            tag = new Tag();
+            tag.Name = name;
+
+            dbo.Tags.InsertOnSubmit(tag);
+            dbo.SubmitChanges();
+        }
+
+        OfferHasTag inter = new OfferHasTag();
+        inter.TagId = tag.ID;
+        inter.OfferId = this.ID;
+
+        dbo.OfferHasTags.InsertOnSubmit(inter);
+
+        dbo.SubmitChanges();
+    }
+
+    public void RemoveTag(int id) {
+
+        DataClassesDataContext dbo = new DataClassesDataContext();
+
+        OfferHasTag inter = dbo.OfferHasTags.SingleOrDefault(i => i.OfferId == this.ID && i.TagId == id);
+
+        if (inter != null) {
+
+            dbo.OfferHasTags.DeleteOnSubmit(inter);
+
+            dbo.SubmitChanges();
+        }
+    }
+
+    public void RemoveTag(string id) {
+
+        RemoveTag(Convert.ToInt32(id));
     }
 
     #endregion

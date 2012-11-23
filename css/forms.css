@@ -136,3 +136,35 @@ p.successLink {
     text-align: center;
     margin-bottom: 100px;
 }
+
+
+
+
+    /**
+        Edit
+        */
+
+div.editBtn {
+    position: absolute;
+    top: 7px;
+    right: 7px;
+}
+
+div.editBtn a {
+    height: 24px;
+    width: 24px;
+    display: block;
+    background: transparent url(../img/edit.png) no-repeat center center;
+}
+
+section.editBtns {
+    width: 300px;
+}
+
+.tag .remTag {
+    display: block;
+    width: 16px;
+    height: 16px;
+    background: transparent url(../img/close.png) no-repeat center center;
+    margin: 0 auto;
+}

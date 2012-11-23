@@ -131,3 +131,30 @@ p#SaveApplicationP a, p#ApplyP a {
     color: #fff;
     text-decoration: none;
 }
+
+
+
+
+/**
+    
+    Update
+
+    */
+
+section#jobInfo {
+    float: left;
+    padding-right: 70px;
+    position: relative;
+}
+
+section#description {
+    position: relative;
+}
+
+section#tags {
+    position: relative;
+}
+
+section#tagText {
+    margin-bottom: 20px;
+}

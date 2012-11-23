@@ -168,10 +168,36 @@ public partial class Logger {
 
         DataClassesDataContext dbo = new DataClassesDataContext();
 
-        this.LastLogin = this.LoginBuff;
-        this.LoginBuff = DateTime.Now;
+        Logger log = dbo.Loggers.Single(l => l.ID == this.ID);
+
+        log.LastLogin = this.LoginBuff;
+        log.LoginBuff = DateTime.Now;
 
         dbo.SubmitChanges();
+    }
+
+    #endregion
+
+
+    #region - HomePage -
+
+    public int CountOffers() {
+
+        DataClassesDataContext dbo = new DataClassesDataContext();
+
+        return dbo.JobOffers.Count(o => o.Added > this.LastLogin);
+    }
+
+    public int CountApplications() {
+
+        DataClassesDataContext dbo = new DataClassesDataContext();
+
+        if (!IsCompany) {
+
+            throw new Exception(); //TODO: error handling
+        }
+
+        return dbo.Applications.Count(a => a.Applied > this.LastLogin);
     }
 
     #endregion

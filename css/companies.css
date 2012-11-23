@@ -183,3 +183,50 @@ section#jobOffers {
     color: #fff;
     text-decoration: none;
 }
+
+
+
+/**
+    Add Offer
+    */
+
+p#jobofferLink a {
+    display: block;
+    padding: 0 10px;
+    height: 23px;
+    line-height: 23px;
+    border: 1px solid #333;
+    text-align: center;
+    color: #eee;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    background-color: #439F5F;
+    float: right;
+    margin-right: 25px;
+    margin-top: 25px;
+}
+
+p#jobofferLink a:hover {
+    background-color: #A2B7A8;
+    color: #fff;
+    text-decoration: none;
+}
+
+
+
+/**
+    
+    Edit
+
+    */
+
+figure#logoCont {
+    position: relative;
+}
+
+section#companyDescriptionCont {
+    position: relative;
+}
+
+aside#contactInfo {
+    position: relative;
+}

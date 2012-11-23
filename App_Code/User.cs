@@ -52,7 +52,7 @@ public partial class User {
 
         DataClassesDataContext dbo = new DataClassesDataContext();
         
-        return dbo.Users.Where(u => SqlMethods.Like(u.Firstname + " " + u.Lastname, "%" + name + "%")).Skip(start).Take(amount).ToList();
+        return dbo.Users.Where(u => SqlMethods.Like(u.Firstname + " " + u.Lastname, "%" + name + "%")).OrderBy(u => u.Lastname).ThenBy(u => u.Firstname).Skip(start).Take(amount).ToList();
     }
 
 
@@ -60,7 +60,7 @@ public partial class User {
 
         DataClassesDataContext dbo = new DataClassesDataContext();
 
-        return dbo.Users.Where(u => string.Compare(u.Firstname + " " + u.Lastname, name, true) == 0).ToList();
+        return dbo.Users.Where(u => string.Compare(u.Firstname + " " + u.Lastname, name, true) == 0).OrderBy(u => u.Lastname).ThenBy(u => u.Firstname).ToList();
     }
 
     public static bool ImageExists(string name) {
@@ -220,6 +220,69 @@ public partial class User {
         dbo.Applications.InsertOnSubmit(app);
 
         dbo.SubmitChanges();
+    }
+
+    #endregion
+
+
+    #region - Update -
+
+    public void UpdateInfo(string image, string email, string phone, string cv, string descr) {
+
+        DataClassesDataContext dbo = new DataClassesDataContext();
+
+        User user = dbo.Users.Single(u => u.ID == this.ID);
+
+        if (image != null && image != "") user.ImageName = image;
+        user.Email = email;
+        user.Telephone = phone;
+        if (cv != null && cv != "") user.Cv = cv;
+        if (descr != null && descr != "") user.Description = descr;
+
+        dbo.SubmitChanges();
+    }
+
+    public void AddTag(string name) {
+
+        DataClassesDataContext dbo = new DataClassesDataContext();
+
+        Tag tag = dbo.Tags.SingleOrDefault(t => System.Data.Linq.SqlClient.SqlMethods.Like(t.Name, name));
+
+        if (tag == null) {
+
+            tag = new Tag();
+            tag.Name = name;
+
+            dbo.Tags.InsertOnSubmit(tag);
+            dbo.SubmitChanges();
+        }
+
+        UserInterestedIn inter = new UserInterestedIn();
+        inter.TagId = tag.ID;
+        inter.UserId = this.ID;
+
+        dbo.UserInterestedIns.InsertOnSubmit(inter);
+
+        dbo.SubmitChanges();
+    }
+
+    public void RemoveTag(int id) {
+
+        DataClassesDataContext dbo = new DataClassesDataContext();
+
+        UserInterestedIn inter = dbo.UserInterestedIns.SingleOrDefault(i => i.UserId == this.ID && i.TagId == id);
+
+        if (inter != null) {
+
+            dbo.UserInterestedIns.DeleteOnSubmit(inter);
+
+            dbo.SubmitChanges();
+        }
+    }
+
+    public void RemoveTag(string id) {
+
+        RemoveTag(Convert.ToInt32(id));
     }
 
     #endregion

@@ -51,6 +51,13 @@ public partial class Company {
         return dbo.Companies.Where(c => SqlMethods.Like(c.Name, "%" + name + "%")).ToList();
     }
 
+    public static int Count() {
+
+        DataClassesDataContext dbo = new DataClassesDataContext();
+
+        return dbo.Companies.Count();
+    }
+
     #endregion
 
 
@@ -113,6 +120,48 @@ public partial class Company {
         dbo.SubmitChanges();
 
         return offer;
+    }
+
+    #endregion
+
+
+    #region - Updates -
+
+    public void UpdateLogo(string filename) {
+
+        DataClassesDataContext dbo = new DataClassesDataContext();
+
+        Company comp = dbo.Companies.Single(c => c.ID == this.ID);
+
+        comp.Logo = filename;
+
+        dbo.SubmitChanges();
+    }
+
+    public void UpdateDescription(string description) {
+
+        DataClassesDataContext dbo = new DataClassesDataContext();
+
+        Company comp = dbo.Companies.Single(c => c.ID == this.ID);
+
+        comp.Description = description;
+
+        dbo.SubmitChanges();
+    }
+
+    public void UpdateInfo(string street, string city, int region, string email, string website) {
+
+        DataClassesDataContext dbo = new DataClassesDataContext();
+
+        Company comp = dbo.Companies.Single(c => c.ID == this.ID);
+
+        comp.Street = street;
+        comp.City = city;
+        comp.RegionId = region;
+        comp.Email = email;
+        comp.Website = website;
+
+        dbo.SubmitChanges();
     }
 
     #endregion

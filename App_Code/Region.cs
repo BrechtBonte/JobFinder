@@ -26,4 +26,11 @@ public partial class Region {
         return this.Name;
     }
 
+
+    public int CountOffers {
+        get {
+            DataClassesDataContext dbo = new DataClassesDataContext();
+            return dbo.JobOffers.Count(o => o.AlternateRegionId == this.ID || (o.AlternateRegionId == null && o.Company.RegionId == this.ID));
+        }
+    }
 }

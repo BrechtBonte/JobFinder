@@ -30,8 +30,8 @@
                                     <asp:Label ID="lblEmail" AssociatedControlID="txtEmail" Text="Email(Account):" runat="server" />
                                     <section class="formInput">
                                         <asp:TextBox ID="txtEmail" CssClass="firstInput"  runat="server" />
-                                        <asp:RequiredFieldValidator ID="reqEmail" CssClass="error" Display="Dynamic" EnableClientScript="false" ControlToValidate="txtEmail" ErrorMessage="Please enter an email address" runat="server" />
-                                        <asp:RegularExpressionValidator ID="regEmail" CssClass="error" Display="Dynamic" EnableClientScript="false" ControlToValidate="txtEmail" ValidationExpression="^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,6}$" ErrorMessage="Please enter a correctly formed email address" runat="server" />
+                                        <asp:RequiredFieldValidator ID="reqEmail" CssClass="error" Display="Dynamic" ControlToValidate="txtEmail" ErrorMessage="Please enter an email address" runat="server" />
+                                        <asp:RegularExpressionValidator ID="regEmail" CssClass="error" Display="Dynamic" ControlToValidate="txtEmail" ValidationExpression="^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,6}$" ErrorMessage="Please enter a correctly formed email address" runat="server" />
                                         <asp:CustomValidator ID="exEmail" CssClass="error" Display="Dynamic" ControlToValidate="txtEmail" OnServerValidate="exEmail_ServerValidate" ErrorMessage="This account already exists" runat="server" />
                                     </section>
                                 </section>

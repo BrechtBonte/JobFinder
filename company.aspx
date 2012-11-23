@@ -4,6 +4,7 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ExtraHead" Runat="Server">
     <link rel="stylesheet" href="css/companies.css" />
+    <link rel="stylesheet" href="css/forms.css" />
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="BodyHolder" Runat="Server">
@@ -17,18 +18,18 @@
                                 <asp:Image ID="companyLogo" AlternateText="Company Logo" runat="server" />
                             </div>
                         </div>
+                        <asp:Panel ID="editLogo" CssClass="editBtn" Visible="false" runat="server">
+                            <asp:LinkButton CommandName="logo" OnCommand="Unnamed_Command" runat="server" />
+                        </asp:Panel>
                     </figure>
-                    <asp:Panel ID="editLogo" CssClass="editBtn" Visible="false" runat="server">
-                        <asp:LinkButton CommandArgument="logo" OnCommand="Unnamed_Command" runat="server" />
-                    </asp:Panel>
                 </asp:View>
                 <asp:View runat="server">
                     <asp:FileUpload ID="fileLogo" runat="server" />
-                    <asp:RequiredFieldValidator ID="reqLogo" CssClass="error" Display="Dynamic" ControlToValidate="fileLogo" ErrorMessage="Please select a logo" runat="server" />
-                    <asp:CustomValidator ID="custLogo" CssClass="error" Display="Dynamic" ControlToValidate="fileLogo" ErrorMessage="Please upload a .jpg or .png image" runat="server" />
+                    <asp:RequiredFieldValidator ID="reqLogo" ValidationGroup="logo" CssClass="error" Display="Dynamic" ControlToValidate="fileLogo" ErrorMessage="Please select a logo" runat="server" />
+                    <asp:CustomValidator ID="custLogo" ValidationGroup="logo" CssClass="error" Display="Dynamic" ControlToValidate="fileLogo" OnServerValidate="custLogo_ServerValidate" ErrorMessage="Please upload a .jpg or .png image" runat="server" />
                     <section class="editBtns">
-                        <p class="cancelBtn"><asp:LinkButton CausesValidation="false" CommandArgument="logo" OnCommand="Cancel_Command" Text="Cancel" runat="server" /></p>
-                        <p class="submitBtn"><asp:LinkButton CommandArgument="logo" OnCommand="Edit_Command" Text="Submit" runat="server" /></p>
+                        <p class="cancelBtn"><asp:LinkButton CausesValidation="false" CommandName="logo" OnCommand="Cancel_Command" Text="Cancel" runat="server" /></p>
+                        <p class="submitBtn"><asp:LinkButton ID="submitLogo" ValidationGroup="logo" CommandName="logo" OnCommand="Edit_Command" Text="Submit" runat="server" /></p>
                     </section>
                 </asp:View>
             </asp:MultiView>
@@ -48,7 +49,7 @@
                             <asp:View runat="server">
                                 <asp:Literal ID="companyDescription" runat="server" />
                                 <asp:Panel ID="editDescription" CssClass="editBtn" Visible="false" runat="server">
-                                    <asp:LinkButton CommandArgument="description" OnCommand="Unnamed_Command" runat="server" />
+                                    <asp:LinkButton CommandName="description" OnCommand="Unnamed_Command" runat="server" />
                                 </asp:Panel>
                             </asp:View>
                             <asp:View runat="server">
@@ -59,9 +60,9 @@
                                         <asp:RequiredFieldValidator ID="reqDescription" CssClass="error" Display="Dynamic" ControlToValidate="txtDescription" ErrorMessage="Please provide a description" runat="server" />
                                     </section>
                                 </section>
-                                <section class="inputBlock">
-                                    <p class="cancelBtn"><asp:LinkButton CausesValidation="false" CommandArgument="description" OnCommand="Cancel_Command" runat="server" /></p>
-                                    <p class="submitBtn"><asp:LinkButton CommandArgument="description" OnCommand="Edit_Command" runat="server" /></p>
+                                <section class="editBtns">
+                                    <p class="cancelBtn"><asp:LinkButton CausesValidation="false" CommandName="description" OnCommand="Cancel_Command" Text="Cancel" runat="server" /></p>
+                                    <p class="submitBtn"><asp:LinkButton ID="submitDescription" CommandName="description" OnCommand="Edit_Command" Text="Submit" runat="server" /></p>
                                 </section>
                             </asp:View>
                         </asp:MultiView>
@@ -75,7 +76,7 @@
                                 <p class="mail"><asp:LinkButton ID="lnkEmail" OnCommand="Redir" runat="server" /></p>
                                 <p class="web"><asp:LinkButton ID="lnkWebsite" OnCommand="Redir" runat="server" /></p>
                                 <asp:Panel ID="editInfo" CssClass="editBtn" Visible="false" runat="server">
-                                    <asp:LinkButton CommandArgument="logo" OnCommand="Unnamed_Command" runat="server" />
+                                    <asp:LinkButton CommandName="info" OnCommand="Unnamed_Command" runat="server" />
                                 </asp:Panel>
                             </asp:View>
                             <asp:View runat="server">
@@ -103,9 +104,9 @@
                                     <asp:TextBox ID="txtWebsite" runat="server" />
                                     <asp:RequiredFieldValidator ID="reqWebsite" CssClass="error" Display="Dynamic" ControlToValidate="txtWebsite" ErrorMessage="Please provide a website" runat="server" />
                                 </section>
-                                <section class="inputBlock">
-                                    <p class="cancelBtn"><asp:LinkButton CausesValidation="false" CommandArgument="info" OnCommand="Cancel_Command" Text="Cancel" runat="server" /></p>
-                                    <p class="submitBtn"><asp:LinkButton CommandArgument="info" OnCommand="Edit_Command" Text="Submit" runat="server" /></p>
+                                <section class="editBtns">
+                                    <p class="cancelBtn"><asp:LinkButton CausesValidation="false" CommandName="info" OnCommand="Cancel_Command" Text="Cancel" runat="server" /></p>
+                                    <p class="submitBtn"><asp:LinkButton ID="submitInfo" CommandName="info" OnCommand="Edit_Command" Text="Submit" runat="server" /></p>
                                 </section>
                             </asp:View>
                         </asp:MultiView>
@@ -113,12 +114,12 @@
                 </section>
             </asp:View>
             <asp:View runat="server">
+                <asp:Panel ID="jobofferPanel" CssClass="clearfix" Visible="false" runat="server">
+                    <p id="jobofferLink"><a href="addjoboffer.aspx">Add a new job offer</a></p>
+                </asp:Panel>
                 <asp:Repeater ID="offerRepeater" OnItemCommand="offerRepeater_ItemCommand" runat="server">
                     <HeaderTemplate>
                         <section id="jobOffers">
-                        <asp:Panel ID="jobofferPanel" Visible="false" runat="server">
-                            <p id="jobofferLink"><a href="addjoboffer.aspx">Add a new job offer</a></p>
-                        </asp:Panel>
                     </HeaderTemplate>
                     <ItemTemplate>
                             <article class="joboffer clearfix">

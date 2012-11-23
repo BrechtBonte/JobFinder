@@ -1,0 +1,210 @@
+﻿/**
+    
+    General
+
+    */
+
+article#contentCont {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 25px;
+}
+
+#contentCont h3 {
+    font-size: 18px;
+    font-family: Candara, Calibri, Segoe, "Segoe UI", Optima, Arial, sans-serif;
+}
+
+div#midSect {
+    clear: both;
+    height: 40px;
+}
+
+
+/**
+    
+    offer bar
+
+    */
+
+section#statistics {
+    width: 500px;
+    float: left;
+}
+
+#statistics p#stats {
+    font-size: 21px;
+    font-weight: bold;
+    color: #3E3E3E;
+    margin-bottom: 20px;
+}
+
+#stats span {
+    color: #439F5F;
+    font-size: 24px;
+}
+
+#statistics h3 {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+#queryBox input {
+    font-size: 18px;
+    width: 300px;
+    float: left;
+    margin-right: 20px;
+}
+
+p#querySearch {
+    float: left;
+}
+
+#querySearch a {
+    display: block;
+    height: 28px;
+    line-height: 28px;
+    width: 60px;
+    font-size: 16px;
+    border: 1px solid #333;
+    text-align: center;
+    color: #eee;
+    background-color: #42889B;
+    font-family: Geneva, Tahoma, Verdana, sans-serif;
+}
+
+#querySearch a:hover {
+    background-color: #9FAFB3;
+    color: #fff;
+    text-decoration: none;
+}
+
+
+
+
+/**
+
+    Register block
+
+    */
+
+section#loggedSect {
+    width: 320px;
+    padding: 20px 10px;
+    border: 1px solid #808080;
+    float: right;
+    text-align: center;
+}
+
+#loggedSect p.registerMessage {
+    font-size: 18px;
+    font-family: Candara, Calibri, Segoe, "Segoe UI", Optima, Arial, sans-serif;
+}
+
+.registerMessage span {
+    color: #42889B;
+    font-size: 26px;
+    font-weight: bold;
+}
+
+p#registerBtn a {
+    width: 100px;
+    margin: 0 auto;
+    margin-top: 20px;
+    display: block;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 10px;
+    font-size: 21px;
+    border: 1px solid #333;
+    text-align: center;
+    color: #eee;
+    background-color: #439F5F;
+    font-family: Geneva, Tahoma, Verdana, sans-serif;
+}
+
+#registerBtn a:hover {
+    background-color: #A2B7A8;
+    color: #fff;
+    text-decoration: none;
+}
+
+
+
+
+
+/**
+    
+    Latest offers
+
+    */
+
+section#recentJobs {
+    clear: left;
+    width: 400px;
+    float: left;
+}
+
+#recentJobs section.joboffer {
+    margin-top: 15px;
+}
+
+.joboffer p.title {
+    font-size: 18px;
+    float: left;
+}
+
+.joboffer p.at {
+    float: right;
+    margin-right: 15px;
+}
+
+.joboffer p.companyName {
+    float: right;
+}
+
+#alljobsLink a {
+    margin: 0 auto;
+    margin-top: 15px;
+    display: block;
+    height: 28px;
+    line-height: 28px;
+    width: 150px;
+    font-size: 16px;
+    border: 1px solid #333;
+    text-align: center;
+    color: #eee;
+    background-color: #42889B;
+    font-family: Geneva, Tahoma, Verdana, sans-serif;
+}
+
+#alljobsLink a:hover {
+    background-color: #9FAFB3;
+    color: #fff;
+    text-decoration: none;
+}
+
+
+
+/**
+    
+    Regions
+
+    */
+
+section#regions {
+    width: 340px;
+    float: right;
+}
+
+#regions h3 {
+    margin-bottom: 10px;
+}
+
+#regions ul {
+    padding-left: 15px;
+}
+
+#regions ul li {
+    margin-top: 5px;
+}
