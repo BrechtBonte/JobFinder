@@ -20,7 +20,13 @@ public partial class inbox : System.Web.UI.Page
             Response.Redirect("Default.aspx");
         } else if(!IsPostBack) {
 
-            if (Request.QueryString["mode"] == "new") ShowSendView(usr);
+            int to;
+            User toU;
+
+            if (Request.QueryString["mode"] == "new" && Request.QueryString["to"] != null && int.TryParse(Request.QueryString["to"], out to) && (toU = global::User.GetUser(to)) != null) {
+                ShowSendView(usr, toU);
+                return;
+            }
 
             int messageId;
             Message message;
